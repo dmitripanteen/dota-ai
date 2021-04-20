@@ -20,12 +20,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "DotaAi\\": "module/DotaAi/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ApplicationTest\\": "module/Application/test/"
         }
     },
     "scripts": {
