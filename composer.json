@@ -20,7 +20,8 @@
     },
     "autoload": {
         "psr-4": {
-            "DotaAi\\": "module/DotaAi/src/"
+            "DotaAi\\": "module/DotaAi/src/",
+            "DaHero\\": "module/DaHero/src/"
         }
     },
     "autoload-dev": {

@@ -11,4 +11,5 @@ return [
     'Zend\Validator',
     'ZendDeveloperTools',
     'DotaAi',
+    'DaHero'
 ];
