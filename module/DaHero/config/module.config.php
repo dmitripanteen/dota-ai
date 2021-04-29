@@ -2,13 +2,27 @@
 
 namespace DaHero;
 
-use Zend\Router\Http\Segment;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Laminas\Router\Http\Segment;
 
 return [
+    'doctrine' => [
+        'driver' => [
+            __NAMESPACE__ . '_driver' => [
+                'class' => AnnotationDriver::class,
+                'cache' => 'array',
+                'paths' => [__DIR__ . '/../src/Entity']
+            ],
+            'orm_default' => [
+                'drivers' => [
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
+                ]
+            ]
+        ]
+    ],
     'controllers' => [
         'factories' => [
-            Controller\HeroController::class => InvokableFactory::class,
+            Controller\HeroController::class => Controller\Factory\HeroControllerFactory::class,
         ],
     ],
     'router' => [
