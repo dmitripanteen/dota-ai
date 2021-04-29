@@ -23,10 +23,7 @@ class HeroController extends AbstractActionController
 
     public function indexAction()
     {
-        $heroes = $this->heroRepository
-            ->findAll();
-
-        // Render the view template
+        $heroes = $this->heroRepository->findAll();
         return new ViewModel(
             [
                 'heroes' => $heroes
@@ -44,5 +41,22 @@ class HeroController extends AbstractActionController
 
     public function deleteAction()
     {
+    }
+
+    public function singleHeroAction()
+    {
+        $heroAlias = $this->params()->fromRoute('hero', 0);
+        $heroName = ucwords(str_replace('_', ' ', $heroAlias));
+        $hero = $this->heroRepository->findOneBy(
+            [
+                'name' => $heroName
+            ]
+        );
+
+        return new ViewModel(
+            [
+                'hero' => $hero
+            ]
+        );
     }
 }

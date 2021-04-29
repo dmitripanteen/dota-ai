@@ -1,0 +1,24 @@
+<?php
+/**
+ * @var $heroes \DaHero\Entity\Hero[]
+ */
+;?>
+<h1>Heroes</h1>
+
+<?php foreach($heroes as $hero): ?>
+    <p>
+        <a href="<?= $this->url(
+            'heroes/hero-page',
+            [
+                'action' => 'singleHero',
+                'hero'   => strtolower(str_replace(' ', '_', $hero->getName()))
+            ]
+        );
+        ?>
+        ">
+            <?= $hero->getName(); ?>
+        </a>
+    </p>
+<div><p><?=str_replace('
+', '</p><p>', $hero->getLore());?></p></div>
+<?php endforeach;?>

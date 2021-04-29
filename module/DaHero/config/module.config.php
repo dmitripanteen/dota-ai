@@ -27,25 +27,38 @@ return [
     ],
     'router' => [
         'routes' => [
-            'album' => [
+            'heroes' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/hero[/:action[/:id]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ],
+                    'route' => '/hero',
                     'defaults' => [
                         'controller' => Controller\HeroController::class,
                         'action'     => 'index',
                     ],
                 ],
+                'may_terminate' => false,
+                'child_routes' => [
+                    'hero-page' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:hero',
+                            'constraints' => [
+                                'hero' => '[a-zA-Z_]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HeroController::class,
+                                'action'     => 'singleHero',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ]
+                ]
             ],
         ],
     ],
     'view_manager' => [
         'template_path_stack' => [
-            'album' => __DIR__ . '/../view',
+            'hero' => __DIR__ . '/../view',
         ],
     ],
 ];
