@@ -43,7 +43,7 @@ return [
                         'options' => [
                             'route'    => '/:hero',
                             'constraints' => [
-                                'hero' => '[a-zA-Z_]*',
+                                'hero' => '[a-zA-Z_-]*',
                             ],
                             'defaults' => [
                                 'controller' => Controller\HeroController::class,
