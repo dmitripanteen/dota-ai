@@ -5,7 +5,7 @@ namespace DaHero\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DaHero\Repository\HeroTalentRepository")
  * @ORM\Table(name="hero_talent")
  */
 class HeroTalent

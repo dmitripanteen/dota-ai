@@ -3,6 +3,7 @@
 namespace DaHero\Controller;
 
 use DaHero\Repository\HeroRepository;
+use DaHero\Repository\HeroTalentRepository;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 
@@ -14,11 +15,18 @@ class HeroController extends AbstractActionController
      */
     private $heroRepository;
 
+    /**
+     * @var HeroTalentRepository
+     */
+    private $heroTalentRepository;
+
     public function __construct(
-        $heroRepository
+        $heroRepository,
+        $heroTalentRepository
     )
     {
         $this->heroRepository = $heroRepository;
+        $this->heroTalentRepository = $heroTalentRepository;
     }
 
     public function indexAction()
@@ -52,10 +60,12 @@ class HeroController extends AbstractActionController
                 'name' => $heroName
             ]
         );
+        $talents = $this->heroTalentRepository->findTalentsByHero($hero);
 
         return new ViewModel(
             [
-                'hero' => $hero
+                'hero' => $hero,
+                'talents' => $talents
             ]
         );
     }
