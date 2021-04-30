@@ -1,6 +1,6 @@
 <?php
 
-namespace DaHero;
+namespace DaBase;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 

@@ -2,15 +2,15 @@
 
 namespace DaHero\Controller;
 
+use DaHero\Repository\HeroRepository;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
-use Doctrine\Persistence\ObjectRepository;
 
 class HeroController extends AbstractActionController
 {
 
     /**
-     * @var ObjectRepository
+     * @var HeroRepository
      */
     private $heroRepository;
 

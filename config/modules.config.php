@@ -11,6 +11,7 @@ return [
     'Zend\Validator',
     'ZendDeveloperTools',
     'DotaAi',
+    'DaBase',
     'DaHero',
     'DoctrineModule',
     'DoctrineORMModule',
