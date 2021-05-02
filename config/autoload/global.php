@@ -1,17 +1,25 @@
 <?php
-use Doctrine\DBAL\Driver\PDOMySql\Driver as PDOMySqlDriver;
+
+use Doctrine\DBAL\Driver\PDO\MySQL\Driver as PDOMySqlDriver;
 
 return [
     'doctrine' => [
-        'connection' => [
+        'connection'  => [
             'orm_default' => [
                 'driverClass' => PDOMySqlDriver::class,
-                'params' => [
+                'params'      => [
                     'host'     => '127.0.0.1',
                     'user'     => 'root',
                     'password' => '123456',
                     'dbname'   => 'dota-ai',
                 ]
+            ],
+        ],
+        'configuration' => [
+            'orm_default' => [
+                'generate_proxies' => true,
+                'proxy_dir' => 'data/DoctrineORMModule/Proxy',
+                'proxy_namespace' => 'DoctrineORMModule\Proxy',
             ],
         ],
     ],
