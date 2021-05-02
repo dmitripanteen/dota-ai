@@ -2,9 +2,18 @@
 /**
  * @var $hero \DaHero\Entity\Hero
  * @var $talents \DaHero\Entity\HeroTalent[]
+ * @var $abilities \DaHero\Entity\HeroAbility[]
  */
 ;?>
 <h1><?=$hero->getName();?></h1>
 
 <?php var_dump($hero);?>
+<hr>
 <?php var_dump($talents);?>
+<hr>
+<?php foreach($abilities as $ability):?>
+<img src="<?=$ability->getImage();?>">
+<video class="heropage_HeroPortrait_22nJ5" autoplay="" preload="auto" loop="" playsinline="" poster="<?=$ability->getImage();?>"><
+    <source type="video/mp4" src="<?=$ability->getVideo();?>">
+</video>
+<?php endforeach;?>

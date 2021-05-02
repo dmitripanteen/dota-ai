@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var $talentsList \DaHero\Entity\HeroTalent[]
+ */; ?>
+<h1>Talents</h1>
+
+<?php foreach ($talents as $heroName => $talentsList): ?>
+<a href="<?= $this->url(
+    'heroes/hero-page',
+    [
+        'action' => 'singleHero',
+        'hero'   => strtolower(str_replace(' ', '_', $heroName))
+    ]
+);
+?>
+        "><?=$heroName;?></a> -
+    <?php foreach ($talentsList as $talent): ?>
+        <?=$talent->getDescription();?>,
+    <?php endforeach; ?>
+<BR>
+<?php endforeach; ?>

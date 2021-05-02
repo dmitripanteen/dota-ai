@@ -23,6 +23,7 @@ return [
     'controllers' => [
         'factories' => [
             Controller\HeroController::class => Controller\Factory\HeroControllerFactory::class,
+            Controller\HeroTalentController::class => Controller\Factory\HeroTalentControllerFactory::class,
         ],
     ],
     'router' => [
@@ -53,6 +54,17 @@ return [
                         'may_terminate' => true,
                     ]
                 ]
+            ],
+            'talents' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/talents',
+                    'defaults' => [
+                        'controller' => Controller\HeroTalentController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
             ],
         ],
     ],
