@@ -52,7 +52,18 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
-                    ]
+                    ],
+                    'hero-crud' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route' => '/add',
+                            'defaults' => [
+                                'controller' => Controller\HeroController::class,
+                                'action'     => 'add',
+                            ],
+                        ],
+                        'may_terminate' => true,
+                    ],
                 ]
             ],
             'talents' => [
@@ -65,6 +76,22 @@ return [
                     ],
                 ],
                 'may_terminate' => true,
+                'child_routes' => [
+                    'add-hero-talents' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:hero/add',
+                            'constraints' => [
+                                'hero' => '[a-zA-Z_-]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HeroTalentController::class,
+                                'action'     => 'addHeroTalents',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                ]
             ],
         ],
     ],

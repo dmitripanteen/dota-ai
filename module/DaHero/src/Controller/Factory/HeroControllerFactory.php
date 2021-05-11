@@ -21,7 +21,8 @@ class HeroControllerFactory implements FactoryInterface
         return new HeroController(
             $entityManager->getRepository(Hero::class),
             $entityManager->getRepository(HeroTalent::class),
-            $entityManager->getRepository(HeroAbility::class)
+            $entityManager->getRepository(HeroAbility::class),
+            $entityManager
         );
     }
 }

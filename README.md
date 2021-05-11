@@ -225,3 +225,8 @@ $ composer cs-fix
 # Run PHPUnit tests:
 $ composer test
 ```
+
+
+##WARNING! Fixes:
+- `Laminas\Form\View\Helper\AbstractHelper` line 14: replace `Laminas` namespace to `Zend`
+- `Zend\I18n\View\Helper\AbstractTranslatorHelper` line 12: replace `Zend` namespace to `Laminas`

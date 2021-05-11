@@ -55,4 +55,9 @@ class HeroTalentController extends AbstractActionController
             ]
         );
     }
+
+    public function addHeroTalentsAction()
+    {
+
+    }
 }
