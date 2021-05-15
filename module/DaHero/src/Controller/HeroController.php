@@ -40,6 +40,7 @@ class HeroController extends AbstractActionController
      * @param $heroRepository
      * @param $heroTalentRepository
      * @param $heroAbilityRepository
+     * @param $entityManager
      */
     public function __construct(
         $heroRepository,
