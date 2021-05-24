@@ -82,35 +82,45 @@ class HeroTalentController extends AbstractActionController
         $form = new HeroTalentsForm($hero);
 
         $request = $this->getRequest();
+        $postData = $request->getPost();
+        $postDataSplit = [];
+        foreach ($postData as $key => $value){
+            $group = substr($key, -1);
+            if(is_numeric($group)) {
+                $postDataSplit[$group][substr($key, 0, -1)] = $value;
+                $postDataSplit[$group]['hero_id'] = $postData['hero_id'];
+            }
+        }
 
         if (!$request->isPost()) {
             return ['form' => $form];
         }
 
-        $heroTalent = new HeroTalent();
         $form->setInputFilter($form->getInputFilter());
-        $form->setData($request->getPost());
+        $form->setData($postDataSplit[0]);
 
         if (!$form->isValid()) {
             return ['form' => $form];
         }
 
-        $formData = $form->getData();
-        $heroTalent->setHero($hero)
-            ->setDescription($formData['description'])
-            ->setLevel($formData['level'])
-            ->setDmgIncrease($formData['dmgIncrease'])
-            ->setArmorIncrease($formData['armorIncrease'])
-            ->setMsIncrease($formData['msIncrease'])
-            ->setStrIncrease($formData['strIncrease'])
-            ->setAgiIncrease($formData['agiIncrease'])
-            ->setIntIncrease($formData['intIncrease'])
-            ->setHpIncrease($formData['hpIncrease'])
-            ->setMpIncrease($formData['mpIncrease'])
-            ->setHpRegenIncrease($formData['hpRegenIncrease'])
-            ->setMpRegenIncrease($formData['mpRegenIncrease']);
-        $this->entityManager->persist($heroTalent);
-        $this->entityManager->flush();
+        foreach ($postDataSplit as $key => $postDataRes){
+            $heroTalent = new HeroTalent();
+            $heroTalent->setHero($hero)
+                ->setDescription($postDataRes['description'])
+                ->setLevel($postDataRes['level'])
+                ->setDmgIncrease($postDataRes['dmgIncrease'])
+                ->setArmorIncrease($postDataRes['armorIncrease'])
+                ->setMsIncrease($postDataRes['msIncrease'])
+                ->setStrIncrease($postDataRes['strIncrease'])
+                ->setAgiIncrease($postDataRes['agiIncrease'])
+                ->setIntIncrease($postDataRes['intIncrease'])
+                ->setHpIncrease($postDataRes['hpIncrease'])
+                ->setMpIncrease($postDataRes['mpIncrease'])
+                ->setHpRegenIncrease($postDataRes['hpRegenIncrease'])
+                ->setMpRegenIncrease($postDataRes['mpRegenIncrease']);
+            $this->entityManager->persist($heroTalent);
+            $this->entityManager->flush();
+        }
         //TODO redirect to hero skills
         return $this->redirect()->toRoute(
             'home'
