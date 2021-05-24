@@ -24,6 +24,7 @@ return [
         'factories' => [
             Controller\HeroController::class => Controller\Factory\HeroControllerFactory::class,
             Controller\HeroTalentController::class => Controller\Factory\HeroTalentControllerFactory::class,
+            Controller\HeroAbilitiesController::class => Controller\Factory\HeroAbilitiesControllerFactory::class,
         ],
     ],
     'router' => [
@@ -91,7 +92,33 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
-                ]
+                ],
+            ],
+            'abilities' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/abilities',
+                    'defaults' => [
+                        'controller' => Controller\HeroAbilitiesController::class,
+                    ],
+                ],
+                'may_terminate' =>  false,
+                'child_routes' => [
+                    'add-hero-abilities' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:hero/add',
+                            'constraints' => [
+                                'hero' => '[a-zA-Z_-]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HeroAbilitiesController::class,
+                                'action'     => 'addHeroAbilities',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                ],
             ],
         ],
     ],

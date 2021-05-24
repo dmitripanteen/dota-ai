@@ -121,9 +121,12 @@ class HeroTalentController extends AbstractActionController
             $this->entityManager->persist($heroTalent);
             $this->entityManager->flush();
         }
-        //TODO redirect to hero skills
         return $this->redirect()->toRoute(
-            'home'
+            'heroes/hero-page',
+            [
+                'action' => 'addHeroAbilities',
+                'hero'   => strtolower(str_replace(' ', '_', $heroAlias))
+            ]
         );
     }
 }
