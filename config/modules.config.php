@@ -13,6 +13,7 @@ return [
     'DotaAi',
     'DaBase',
     'DaHero',
+    'DaItem',
     'DoctrineModule',
     'DoctrineORMModule',
 ];

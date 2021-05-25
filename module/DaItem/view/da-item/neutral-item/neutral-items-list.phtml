@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $neutralItems \DaItem\Entity\NeutralItem[]
+ */; ?>
+<h1>Neutral Items</h1>
+
+<?php foreach ($neutralItems as $neutralItem): ?>
+    <a href="<?= $this->url(
+        'neutral-items/neutral-item-page',
+        [
+            'action' => 'singleItem',
+            'neutralItem'   => $neutralItem->getAlias()
+        ]
+    );
+    ?>
+        ">
+        <?= $neutralItem->getName(); ?>
+    </a>
+<?php endforeach; ?>

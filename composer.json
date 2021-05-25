@@ -23,7 +23,8 @@
         "psr-4": {
             "DotaAi\\": "module/DotaAi/src/",
             "DaHero\\": "module/DaHero/src/",
-            "DaBase\\": "module/DaBase/src/"
+            "DaBase\\": "module/DaBase/src/",
+            "DaItem\\": "module/DaItem/src/"
         }
     },
     "autoload-dev": {
