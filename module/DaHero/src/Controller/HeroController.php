@@ -112,6 +112,63 @@ class HeroController extends AbstractActionController
 
     public function editAction()
     {
+        $heroAlias = $this->params()->fromRoute('hero', '');
+
+        if (!$heroAlias) {
+            return $this->redirect()->toRoute(
+                'heroes/hero-crud',
+                [
+                    'action'      => 'add',
+                ]
+            );
+        }
+
+        try {
+            $hero = $this->heroRepository->findOneBy(
+                [
+                    'name' => $heroAlias
+                ]
+            );
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute(
+                'heroes',
+                [
+                    'action'      => 'index',
+                ]
+            );
+        }
+
+        $form = new HeroForm();
+        $form->bind($hero);
+        $form->get('submit')->setValue('Edit');
+
+        $request = $this->getRequest();
+        $viewData = [
+            'hero' => $hero,
+            'form' => $form
+        ];
+
+        if (! $request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($form->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return $viewData;
+        }
+
+        $this->entityManager->persist($hero);
+        $this->entityManager->flush();
+
+        return $this->redirect()->toRoute(
+            'heroes/hero-page',
+            [
+                'action' => 'singleHero',
+                'hero'   => $heroAlias
+            ]
+        );
     }
 
     public function deleteAction()

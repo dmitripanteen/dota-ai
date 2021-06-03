@@ -2,13 +2,14 @@
 
 namespace DaItem\Entity;
 
+use DaBase\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="neutral_item")
  */
-class NeutralItem
+class NeutralItem extends AbstractEntity
 {
 
     /**

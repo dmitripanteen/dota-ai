@@ -119,4 +119,64 @@ class ItemController extends AbstractActionController
             ]
         );
     }
+
+    public function editAction()
+    {
+        $itemAlias = $this->params()->fromRoute('item', '');
+
+        if (!$itemAlias) {
+            return $this->redirect()->toRoute(
+                'items/add-item',
+                [
+                    'action'      => 'add',
+                ]
+            );
+        }
+
+        try {
+            $item= $this->itemRepository->findOneByAlias($itemAlias);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute(
+                'items',
+                [
+                    'action'      => 'itemsList',
+                ]
+            );
+        }
+
+        $form = new ItemForm(
+            $this->entityManager,
+            $this->itemRepository
+        );
+        $form->bind($item);
+        $form->get('submit')->setValue('Edit');
+
+        $request = $this->getRequest();
+        $viewData = [
+            'item' => $item,
+            'form' => $form
+        ];
+
+        if (! $request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($form->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return $viewData;
+        }
+
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+
+        return $this->redirect()->toRoute(
+            'items/item-page',
+            [
+                'action' => 'singleItem',
+                'item'   => $itemAlias
+            ]
+        );
+    }
 }

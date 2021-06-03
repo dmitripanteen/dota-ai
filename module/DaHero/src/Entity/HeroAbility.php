@@ -2,13 +2,14 @@
 
 namespace DaHero\Entity;
 
+use DaBase\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="DaHero\Repository\HeroAbilityRepository")
  * @ORM\Table(name="hero_ability")
  */
-class HeroAbility
+class HeroAbility extends AbstractEntity
 {
     const MAIN_ATTR_STRENGTH = 1;
     const MAIN_ATTR_AGILITY = 2;

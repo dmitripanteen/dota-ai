@@ -2,13 +2,14 @@
 
 namespace DaItem\Entity;
 
+use DaBase\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="item")
  */
-class Item
+class Item extends AbstractEntity
 {
 
     const TYPE_BASIC = 1;

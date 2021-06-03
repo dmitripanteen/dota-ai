@@ -109,4 +109,61 @@ class NeutralItemController extends AbstractActionController
             ]
         );
     }
+
+    public function editAction()
+    {
+        $itemAlias = $this->params()->fromRoute('neutralItem', '');
+
+        if (!$itemAlias) {
+            return $this->redirect()->toRoute(
+                'neutral-items/add-item',
+                [
+                    'action'      => 'add',
+                ]
+            );
+        }
+
+        try {
+            $item= $this->neutralItemRepository->findOneByAlias($itemAlias);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute(
+                'neutral-items',
+                [
+                    'action'      => 'neutralItemsList',
+                ]
+            );
+        }
+
+        $form = new NeutralItemForm();
+        $form->bind($item);
+        $form->get('submit')->setValue('Edit');
+
+        $request = $this->getRequest();
+        $viewData = [
+            'neutralItem' => $item,
+            'form' => $form
+        ];
+
+        if (! $request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($form->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return $viewData;
+        }
+
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+
+        return $this->redirect()->toRoute(
+            'neutral-items/neutral-item-page',
+            [
+                'action' => 'singleItem',
+                'neutralItem'   => $itemAlias
+            ]
+        );
+    }
 }

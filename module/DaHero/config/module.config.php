@@ -3,6 +3,7 @@
 namespace DaHero;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 
 return [
@@ -53,6 +54,19 @@ return [
                             ]
                         ],
                         'may_terminate' => true,
+                        'child_routes'  => [
+                            'edit-hero' => [
+                                'type'          => Literal::class,
+                                'options'       => [
+                                    'route'    => '/edit',
+                                    'defaults' => [
+                                        'controller' => Controller\HeroController::class,
+                                        'action'     => 'edit',
+                                    ]
+                                ],
+                                'may_terminate' => true,
+                            ],
+                        ]
                     ],
                     'hero-crud' => [
                         'type'    => Segment::class,
