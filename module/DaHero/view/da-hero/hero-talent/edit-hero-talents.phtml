@@ -1,0 +1,44 @@
+<?php
+/**
+ * @var $hero \DaHero\Entity\Hero
+ */
+;?>
+<h1>Edit hero talents</h1>
+<?php echo $this->form()->openTag($form);
+$id = $form->get('id');
+$heroId = $form->get('hero_id');
+$level = $form->get('level');
+$description = $form->get('description');
+$dmgIncrease = $form->get('dmgIncrease');
+$armorIncrease = $form->get('armorIncrease');
+$msIncrease = $form->get('msIncrease');
+$strIncrease = $form->get('strIncrease');
+$agiIncrease = $form->get('agiIncrease');
+$intIncrease = $form->get('intIncrease');
+$hpIncrease = $form->get('hpIncrease');
+$mpIncrease = $form->get('mpIncrease');
+$hpRegenIncrease = $form->get('hpRegenIncrease');
+$mpRegenIncrease = $form->get('mpRegenIncrease');
+$submit = $form->get('submit');
+for($i=0; $i<8;$i++) {
+    echo '<fieldset>';
+    $form->bind($talents[$i]);
+    echo str_replace('name="id"', 'name="id'.$i.'"', $this->formRow($id));
+    echo str_replace('name="level"', 'name="level'.$i.'"', $this->formRow($level));
+    echo str_replace('name="description"', 'name="description'.$i.'"', $this->formRow($description));
+    echo str_replace('name="dmgIncrease"', 'name="dmgIncrease'.$i.'"', $this->formRow($dmgIncrease));
+    echo str_replace('name="armorIncrease"', 'name="armorIncrease'.$i.'"', $this->formRow($armorIncrease));
+    echo str_replace('name="msIncrease"', 'name="msIncrease'.$i.'"', $this->formRow($msIncrease));
+    echo str_replace('name="strIncrease"', 'name="strIncrease'.$i.'"', $this->formRow($strIncrease));
+    echo str_replace('name="agiIncrease"', 'name="agiIncrease'.$i.'"', $this->formRow($agiIncrease));
+    echo str_replace('name="intIncrease"', 'name="intIncrease'.$i.'"', $this->formRow($intIncrease));
+    echo str_replace('name="hpIncrease"', 'name="hpIncrease'.$i.'"', $this->formRow($hpIncrease));
+    echo str_replace('name="mpIncrease"', 'name="mpIncrease'.$i.'"', $this->formRow($mpIncrease));
+    echo str_replace('name="hpRegenIncrease"', 'name="hpRegenIncrease'.$i.'"', $this->formRow($hpRegenIncrease));
+    echo str_replace('name="mpRegenIncrease"', 'name="mpRegenIncrease'.$i.'"', $this->formRow($mpRegenIncrease));
+    echo '</fieldset>';
+}
+echo $this->formRow($heroId);
+echo $this->formRow($submit);
+echo $this->form()->closeTag();
+?>

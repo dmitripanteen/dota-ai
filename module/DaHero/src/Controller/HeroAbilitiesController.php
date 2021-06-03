@@ -104,4 +104,66 @@ class HeroAbilitiesController extends AbstractActionController
             ]
         );
     }
+
+    public function editHeroAbilityAction()
+    {
+        $heroAlias = $this->params()->fromRoute('hero', '');
+        $abilityId = $this->params()->fromRoute('abilityId', '');
+
+        if (!$heroAlias || $abilityId === '') {
+            return $this->redirect()->toRoute(
+                'heroes/hero-page',
+                [
+                    'action' => 'singleHero',
+                    'hero'   => $heroAlias
+                ]
+            );
+        }
+
+        try {
+            $hero = $this->heroRepository->findOneByAlias($heroAlias);
+            $ability = $this->heroAbilityRepository->findById($abilityId);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute(
+                'heroes/hero-page',
+                [
+                    'action' => 'singleHero',
+                    'hero'   => $heroAlias
+                ]
+            );
+        }
+
+        $form = new HeroAbilitiesForm($hero);
+        $form->bind($ability);
+        $form->get('submit')->setValue('Edit');
+        $form->remove('finish');
+
+        $request = $this->getRequest();
+        $viewData = [
+            'ability' => $ability,
+            'form' => $form
+        ];
+
+        if (! $request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($form->getInputFilter());
+        $form->setData($request->getPost());
+
+        if (! $form->isValid()) {
+            return $viewData;
+        }
+
+        $this->entityManager->persist($ability);
+        $this->entityManager->flush();
+
+        return $this->redirect()->toRoute(
+            'heroes/hero-page',
+            [
+                'action' => 'singleHero',
+                'hero'   => $heroAlias
+            ]
+        );
+    }
 }

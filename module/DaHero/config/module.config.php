@@ -106,6 +106,20 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    'edit-hero-talents' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:hero/edit',
+                            'constraints' => [
+                                'hero' => '[a-zA-Z_-]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HeroTalentController::class,
+                                'action'     => 'editHeroTalents',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                 ],
             ],
             'abilities' => [
@@ -128,6 +142,21 @@ return [
                             'defaults' => [
                                 'controller' => Controller\HeroAbilitiesController::class,
                                 'action'     => 'addHeroAbilities',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    'edit-hero-abilities' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:hero/edit/:abilityId',
+                            'constraints' => [
+                                'hero' => '[a-zA-Z_-]*',
+                                'abilityId' => '[0-9]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\HeroAbilitiesController::class,
+                                'action'     => 'editHeroAbility',
                             ]
                         ],
                         'may_terminate' => true,

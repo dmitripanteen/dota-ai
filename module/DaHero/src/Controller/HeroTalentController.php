@@ -124,4 +124,90 @@ class HeroTalentController extends AbstractActionController
             ]
         );
     }
+
+    public function editHeroTalentsAction()
+    {
+        $heroAlias = $this->params()->fromRoute('hero', 0);
+
+        if (!$heroAlias) {
+            return $this->redirect()->toRoute(
+                'heroes/hero-page',
+                [
+                    'action' => 'singleHero',
+                    'hero'   => $heroAlias
+                ]
+            );
+        }
+
+        try {
+            $hero = $this->heroRepository->findOneByAlias($heroAlias);
+            $talents = $this->heroTalentRepository->findTalentsByHero($hero);
+        } catch (\Exception $e) {
+            return $this->redirect()->toRoute(
+                'heroes/hero-page',
+                [
+                    'action' => 'singleHero',
+                    'hero'   => $heroAlias
+                ]
+            );
+        }
+
+        $form = new HeroTalentsForm($hero);
+        $form->getFieldsets();
+        $form->get('submit')->setValue('Edit');
+
+        $request = $this->getRequest();
+        $viewData = [
+            'talents' => $talents,
+            'form' => $form
+        ];
+
+        if (!$request->isPost()) {
+            return $viewData;
+        }
+
+        $form->setInputFilter($form->getInputFilter());
+
+        $postData = $request->getPost();
+        $postDataSplit = [];
+        foreach ($postData as $key => $value) {
+            $group = substr($key, -1);
+            if (is_numeric($group)) {
+                $postDataSplit[$group][substr($key, 0, -1)] = $value;
+                $postDataSplit[$group]['hero_id'] = $postData['hero_id'];
+            }
+        }
+
+        $form->setData($postDataSplit[0]);
+
+        if (!$form->isValid()) {
+            return $viewData;
+        }
+
+        foreach ($postDataSplit as $key => $postDataRes) {
+            $heroTalent = $this->heroTalentRepository->findById($postDataRes['id']);
+            $heroTalent->setHero($hero)
+                ->setDescription($postDataRes['description'])
+                ->setLevel($postDataRes['level'])
+                ->setDmgIncrease($postDataRes['dmgIncrease'])
+                ->setArmorIncrease($postDataRes['armorIncrease'])
+                ->setMsIncrease($postDataRes['msIncrease'])
+                ->setStrIncrease($postDataRes['strIncrease'])
+                ->setAgiIncrease($postDataRes['agiIncrease'])
+                ->setIntIncrease($postDataRes['intIncrease'])
+                ->setHpIncrease($postDataRes['hpIncrease'])
+                ->setMpIncrease($postDataRes['mpIncrease'])
+                ->setHpRegenIncrease($postDataRes['hpRegenIncrease'])
+                ->setMpRegenIncrease($postDataRes['mpRegenIncrease']);
+            $this->entityManager->persist($heroTalent);
+            $this->entityManager->flush();
+        }
+        return $this->redirect()->toRoute(
+            'heroes/hero-page',
+            [
+                'action' => 'singleHero',
+                'hero'   => $heroAlias
+            ]
+        );
+    }
 }
