@@ -3,6 +3,7 @@
 namespace DaItem;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 
 return [
@@ -24,6 +25,11 @@ return [
         'factories' => [
             Controller\ItemController::class => Controller\Factory\ItemControllerFactory::class,
             Controller\NeutralItemController::class => Controller\Factory\NeutralItemControllerFactory::class,
+        ],
+    ],
+    'form_elements'          => [
+        'factories'  => [
+            Form\ItemForm::class                 => Form\Factory\ItemFormFactory::class
         ],
     ],
     'router' => [
@@ -53,6 +59,17 @@ return [
                         ],
                         'may_terminate' => true,
                     ],
+                    'add-item' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/add',
+                            'defaults' => [
+                                'controller' => Controller\ItemController::class,
+                                'action'     => 'add',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                 ]
             ],
             'neutral-items' => [
@@ -76,6 +93,17 @@ return [
                             'defaults' => [
                                 'controller' => Controller\NeutralItemController::class,
                                 'action'     => 'singleItem',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
+                    'add-item' => [
+                        'type'    => Literal::class,
+                        'options' => [
+                            'route'    => '/add',
+                            'defaults' => [
+                                'controller' => Controller\NeutralItemController::class,
+                                'action'     => 'add',
                             ]
                         ],
                         'may_terminate' => true,
