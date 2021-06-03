@@ -70,15 +70,10 @@ class HeroTalentController extends AbstractActionController
     public function addHeroTalentsAction()
     {
         $heroAlias = $this->params()->fromRoute('hero', 0);
-        $heroName = ucwords(str_replace('_', ' ', $heroAlias));
         /**
          * @var $hero Hero
          */
-        $hero = $this->heroRepository->findOneBy(
-            [
-                'name' => $heroName
-            ]
-        );
+        $hero = $this->heroRepository->findOneByAlias($heroAlias);
         $form = new HeroTalentsForm($hero);
 
         $request = $this->getRequest();
@@ -125,7 +120,7 @@ class HeroTalentController extends AbstractActionController
             'heroes/hero-page',
             [
                 'action' => 'addHeroAbilities',
-                'hero'   => strtolower(str_replace(' ', '_', $heroAlias))
+                'hero'   => $heroAlias
             ]
         );
     }

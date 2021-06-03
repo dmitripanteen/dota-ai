@@ -51,15 +51,10 @@ class HeroAbilitiesController extends AbstractActionController
     public function addHeroAbilitiesAction()
     {
         $heroAlias = $this->params()->fromRoute('hero', 0);
-        $heroName = ucwords(str_replace('_', ' ', $heroAlias));
         /**
          * @var $hero Hero
          */
-        $hero = $this->heroRepository->findOneBy(
-            [
-                'name' => $heroName
-            ]
-        );
+        $hero = $this->heroRepository->findOneByAlias($heroAlias);
         $form = new HeroAbilitiesForm($hero);
 
         $request = $this->getRequest();

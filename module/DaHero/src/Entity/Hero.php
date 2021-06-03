@@ -34,6 +34,13 @@ class Hero extends AbstractEntity
     /**
      * @var string
      *
+     * @ORM\Column(type="string", nullable=false, unique=true)
+     */
+    protected $alias;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(type="text" , nullable=true)
      */
     protected $lore;
@@ -153,6 +160,25 @@ class Hero extends AbstractEntity
     public function setName($name): self
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     *
+     * @return Hero
+     */
+    public function setAlias($alias): self
+    {
+        $this->alias = $alias;
         return $this;
     }
 

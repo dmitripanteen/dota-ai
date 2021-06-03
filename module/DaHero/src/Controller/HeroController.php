@@ -85,7 +85,9 @@ class HeroController extends AbstractActionController
         }
 
         $formData = $form->getData();
+        $heroAlias = strtolower(str_replace('\'', '', str_replace([' ', '-'], '_', $formData['name'])));
         $hero->setName($formData['name'])
+            ->setAlias($heroAlias)
             ->setLore($formData['lore'])
             ->setMainAttribute($formData['mainAttr'])
             ->setBaseStr($formData['baseStr'])
@@ -105,7 +107,7 @@ class HeroController extends AbstractActionController
             'talents/add-hero-talents',
             [
                 'action' => 'addHeroTalents',
-                'hero'   => strtolower(str_replace(' ', '_', $formData['name']))
+                'hero'   => $heroAlias
             ]
         );
     }
@@ -124,11 +126,7 @@ class HeroController extends AbstractActionController
         }
 
         try {
-            $hero = $this->heroRepository->findOneBy(
-                [
-                    'name' => $heroAlias
-                ]
-            );
+            $hero = $this->heroRepository->findOneByAlias($heroAlias);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute(
                 'heroes',
@@ -178,15 +176,10 @@ class HeroController extends AbstractActionController
     public function singleHeroAction()
     {
         $heroAlias = $this->params()->fromRoute('hero', 0);
-        $heroName = ucwords(str_replace('_', ' ', $heroAlias));
         /**
          * @var $hero Hero
          */
-        $hero = $this->heroRepository->findOneBy(
-            [
-                'name' => $heroName
-            ]
-        );
+        $hero = $this->heroRepository->findOneByAlias($heroAlias);
         $talents = $this->heroTalentRepository->findTalentsByHero($hero);
         $abilities = $this->heroAbilityRepository->findAbilitiesByHero($hero);
 
