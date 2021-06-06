@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var $matches \DaMatch\Entity\Match[]
+ */
+;?>
+<h1>Matches</h1>
+
+<?php foreach ($matches as $match): ?>
+    <?= $match->getId().PHP_EOL;?>
+<?php endforeach; ?>

@@ -24,7 +24,8 @@
             "DotaAi\\": "module/DotaAi/src/",
             "DaHero\\": "module/DaHero/src/",
             "DaBase\\": "module/DaBase/src/",
-            "DaItem\\": "module/DaItem/src/"
+            "DaItem\\": "module/DaItem/src/",
+            "DaMatch\\": "module/DaMatch/src/"
         }
     },
     "autoload-dev": {

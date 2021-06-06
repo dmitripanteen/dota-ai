@@ -14,6 +14,7 @@ return [
     'DaBase',
     'DaHero',
     'DaItem',
+    'DaMatch',
     'DoctrineModule',
     'DoctrineORMModule',
 ];
