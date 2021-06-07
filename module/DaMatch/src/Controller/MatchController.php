@@ -230,7 +230,7 @@ class MatchController extends AbstractActionController
 
         return new ViewModel(
             [
-                'match'      => $match[0],
+                'match' => $match[0],
             ]
         );
     }

@@ -141,17 +141,17 @@ class HeroAbilitiesController extends AbstractActionController
         $request = $this->getRequest();
         $viewData = [
             'ability' => $ability,
-            'form' => $form
+            'form'    => $form
         ];
 
-        if (! $request->isPost()) {
+        if (!$request->isPost()) {
             return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $viewData;
         }
 

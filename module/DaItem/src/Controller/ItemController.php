@@ -86,7 +86,7 @@ class ItemController extends AbstractActionController
         $formData = $form->getData();
         $itemAlias = strtolower(str_replace('\'', '', str_replace(' ', '_', $formData['name'])));
         $buildsInto = [];
-        foreach ($formData['buildsInto'] as $parentItem){
+        foreach ($formData['buildsInto'] as $parentItem) {
             $buildsInto[] = $parentItem[0];
         }
         $item->setName($formData['name'])
@@ -128,18 +128,18 @@ class ItemController extends AbstractActionController
             return $this->redirect()->toRoute(
                 'items/add-item',
                 [
-                    'action'      => 'add',
+                    'action' => 'add',
                 ]
             );
         }
 
         try {
-            $item= $this->itemRepository->findOneByAlias($itemAlias);
+            $item = $this->itemRepository->findOneByAlias($itemAlias);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute(
                 'items',
                 [
-                    'action'      => 'itemsList',
+                    'action' => 'itemsList',
                 ]
             );
         }
@@ -157,14 +157,14 @@ class ItemController extends AbstractActionController
             'form' => $form
         ];
 
-        if (! $request->isPost()) {
+        if (!$request->isPost()) {
             return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $viewData;
         }
 

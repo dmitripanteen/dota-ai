@@ -31,8 +31,7 @@ class NeutralItemController extends AbstractActionController
     public function __construct(
         $entityManager,
         $neutralItemRepository
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->neutralItemRepository = $neutralItemRepository;
     }
@@ -104,8 +103,8 @@ class NeutralItemController extends AbstractActionController
         return $this->redirect()->toRoute(
             'neutral-items/neutral-item-page',
             [
-                'action' => 'singleItem',
-                'neutralItem'   => $itemAlias
+                'action'      => 'singleItem',
+                'neutralItem' => $itemAlias
             ]
         );
     }
@@ -118,18 +117,18 @@ class NeutralItemController extends AbstractActionController
             return $this->redirect()->toRoute(
                 'neutral-items/add-item',
                 [
-                    'action'      => 'add',
+                    'action' => 'add',
                 ]
             );
         }
 
         try {
-            $item= $this->neutralItemRepository->findOneByAlias($itemAlias);
+            $item = $this->neutralItemRepository->findOneByAlias($itemAlias);
         } catch (\Exception $e) {
             return $this->redirect()->toRoute(
                 'neutral-items',
                 [
-                    'action'      => 'neutralItemsList',
+                    'action' => 'neutralItemsList',
                 ]
             );
         }
@@ -141,17 +140,17 @@ class NeutralItemController extends AbstractActionController
         $request = $this->getRequest();
         $viewData = [
             'neutralItem' => $item,
-            'form' => $form
+            'form'        => $form
         ];
 
-        if (! $request->isPost()) {
+        if (!$request->isPost()) {
             return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $viewData;
         }
 
@@ -161,8 +160,8 @@ class NeutralItemController extends AbstractActionController
         return $this->redirect()->toRoute(
             'neutral-items/neutral-item-page',
             [
-                'action' => 'singleItem',
-                'neutralItem'   => $itemAlias
+                'action'      => 'singleItem',
+                'neutralItem' => $itemAlias
             ]
         );
     }

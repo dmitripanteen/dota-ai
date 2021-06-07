@@ -14,8 +14,7 @@ class HeroTalentControllerFactory implements FactoryInterface
         ContainerInterface $container,
         $requestedName,
         array $options = null
-    )
-    {
+    ) {
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         return new HeroTalentController(
             $entityManager->getRepository(Hero::class),

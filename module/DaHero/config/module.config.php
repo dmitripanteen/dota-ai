@@ -7,48 +7,48 @@ use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 
 return [
-    'doctrine' => [
+    'doctrine'     => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [
                 'class' => AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [__DIR__ . '/../src/Entity']
             ],
-            'orm_default' => [
+            'orm_default'             => [
                 'drivers' => [
                     __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver'
                 ]
             ]
         ]
     ],
-    'controllers' => [
+    'controllers'  => [
         'factories' => [
-            Controller\HeroController::class => Controller\Factory\HeroControllerFactory::class,
-            Controller\HeroTalentController::class => Controller\Factory\HeroTalentControllerFactory::class,
+            Controller\HeroController::class          => Controller\Factory\HeroControllerFactory::class,
+            Controller\HeroTalentController::class    => Controller\Factory\HeroTalentControllerFactory::class,
             Controller\HeroAbilitiesController::class => Controller\Factory\HeroAbilitiesControllerFactory::class,
         ],
     ],
-    'router' => [
+    'router'       => [
         'routes' => [
-            'heroes' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/hero',
+            'heroes'    => [
+                'type'          => Segment::class,
+                'options'       => [
+                    'route'    => '/hero',
                     'defaults' => [
                         'controller' => Controller\HeroController::class,
                         'action'     => 'index',
                     ],
                 ],
                 'may_terminate' => false,
-                'child_routes' => [
+                'child_routes'  => [
                     'hero-page' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:hero',
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:hero',
                             'constraints' => [
                                 'hero' => '[a-zA-Z_-]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\HeroController::class,
                                 'action'     => 'singleHero',
                             ]
@@ -69,9 +69,9 @@ return [
                         ]
                     ],
                     'hero-crud' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route' => '/add',
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'    => '/add',
                             'defaults' => [
                                 'controller' => Controller\HeroController::class,
                                 'action'     => 'add',
@@ -81,25 +81,25 @@ return [
                     ],
                 ]
             ],
-            'talents' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/talents',
+            'talents'   => [
+                'type'          => Segment::class,
+                'options'       => [
+                    'route'    => '/talents',
                     'defaults' => [
                         'controller' => Controller\HeroTalentController::class,
                         'action'     => 'index',
                     ],
                 ],
                 'may_terminate' => true,
-                'child_routes' => [
-                    'add-hero-talents' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:hero/add',
+                'child_routes'  => [
+                    'add-hero-talents'  => [
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:hero/add',
                             'constraints' => [
                                 'hero' => '[a-zA-Z_-]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\HeroTalentController::class,
                                 'action'     => 'addHeroTalents',
                             ]
@@ -107,13 +107,13 @@ return [
                         'may_terminate' => true,
                     ],
                     'edit-hero-talents' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:hero/edit',
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:hero/edit',
                             'constraints' => [
                                 'hero' => '[a-zA-Z_-]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\HeroTalentController::class,
                                 'action'     => 'editHeroTalents',
                             ]
@@ -123,23 +123,23 @@ return [
                 ],
             ],
             'abilities' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/abilities',
+                'type'          => Segment::class,
+                'options'       => [
+                    'route'    => '/abilities',
                     'defaults' => [
                         'controller' => Controller\HeroAbilitiesController::class,
                     ],
                 ],
-                'may_terminate' =>  false,
-                'child_routes' => [
-                    'add-hero-abilities' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:hero/add',
+                'may_terminate' => false,
+                'child_routes'  => [
+                    'add-hero-abilities'  => [
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:hero/add',
                             'constraints' => [
                                 'hero' => '[a-zA-Z_-]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\HeroAbilitiesController::class,
                                 'action'     => 'addHeroAbilities',
                             ]
@@ -147,14 +147,14 @@ return [
                         'may_terminate' => true,
                     ],
                     'edit-hero-abilities' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:hero/edit/:abilityId',
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:hero/edit/:abilityId',
                             'constraints' => [
-                                'hero' => '[a-zA-Z_-]*',
+                                'hero'      => '[a-zA-Z_-]*',
                                 'abilityId' => '[0-9]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\HeroAbilitiesController::class,
                                 'action'     => 'editHeroAbility',
                             ]

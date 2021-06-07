@@ -1,11 +1,10 @@
 <?php
 /**
  * @var $heroes \DaHero\Entity\Hero[]
- */
-;?>
+ */; ?>
 <h1>Heroes</h1>
 
-<?php foreach($heroes as $hero): ?>
+<?php foreach ($heroes as $hero): ?>
     <p>
         <a href="<?= $this->url(
             'heroes/hero-page',
@@ -19,6 +18,8 @@
             <?= $hero->getName(); ?>
         </a>
     </p>
-<div><p><?=str_replace('
-', '</p><p>', $hero->getLore());?></p></div>
-<?php endforeach;?>
+    <div><p><?= str_replace(
+                '
+', '</p><p>', $hero->getLore()
+            ); ?></p></div>
+<?php endforeach; ?>

@@ -7,7 +7,7 @@ use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 
 return [
-    'doctrine'      => [
+    'doctrine'     => [
         'driver' => [
             __NAMESPACE__ . '_driver' => [
                 'class' => AnnotationDriver::class,
@@ -21,14 +21,14 @@ return [
             ]
         ]
     ],
-    'controllers'   => [
+    'controllers'  => [
         'factories' => [
-            Controller\MatchController::class        => Controller\Factory\MatchControllerFactory::class,
+            Controller\MatchController::class => Controller\Factory\MatchControllerFactory::class,
         ],
     ],
-    'router'        => [
+    'router'       => [
         'routes' => [
-            'matches'         => [
+            'matches' => [
                 'type'          => Literal::class,
                 'options'       => [
                     'route'    => '/matches',
@@ -38,24 +38,24 @@ return [
                     ],
                 ],
                 'may_terminate' => true,
-                'child_routes' => [
+                'child_routes'  => [
                     'match-page' => [
-                        'type'    => Segment::class,
-                        'options' => [
-                            'route'    => '/:matchId',
+                        'type'          => Segment::class,
+                        'options'       => [
+                            'route'       => '/:matchId',
                             'constraints' => [
                                 'matchId' => '[0-9]*',
                             ],
-                            'defaults' => [
+                            'defaults'    => [
                                 'controller' => Controller\MatchController::class,
                                 'action'     => 'showMatch',
                             ]
                         ],
                         'may_terminate' => true,
                     ],
-                    'fetch' => [
-                        'type'    => Literal::class,
-                        'options' => [
+                    'fetch'      => [
+                        'type'          => Literal::class,
+                        'options'       => [
                             'route'    => '/fetch',
                             'defaults' => [
                                 'controller' => Controller\MatchController::class,
@@ -68,7 +68,7 @@ return [
             ],
         ],
     ],
-    'view_manager'  => [
+    'view_manager' => [
         'template_path_stack' => [
             'match' => __DIR__ . '/../view',
         ],

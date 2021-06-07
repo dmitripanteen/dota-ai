@@ -40,8 +40,7 @@ class HeroTalentController extends AbstractActionController
         $heroRepository,
         $heroTalentRepository,
         $entityManager
-    )
-    {
+    ) {
         $this->heroRepository = $heroRepository;
         $this->heroTalentRepository = $heroTalentRepository;
         $this->entityManager = $entityManager;
@@ -55,7 +54,7 @@ class HeroTalentController extends AbstractActionController
          * @var $heroes Hero[]
          */
         $heroes = $this->heroRepository->findAll();
-        foreach ($heroes as $hero){
+        foreach ($heroes as $hero) {
             $heroTalentsList = $this->heroTalentRepository->findTalentsByHero($hero);
             $talents[$hero->getName()] = $heroTalentsList;
         }
@@ -79,9 +78,9 @@ class HeroTalentController extends AbstractActionController
         $request = $this->getRequest();
         $postData = $request->getPost();
         $postDataSplit = [];
-        foreach ($postData as $key => $value){
+        foreach ($postData as $key => $value) {
             $group = substr($key, -1);
-            if(is_numeric($group)) {
+            if (is_numeric($group)) {
                 $postDataSplit[$group][substr($key, 0, -1)] = $value;
                 $postDataSplit[$group]['hero_id'] = $postData['hero_id'];
             }
@@ -98,7 +97,7 @@ class HeroTalentController extends AbstractActionController
             return ['form' => $form];
         }
 
-        foreach ($postDataSplit as $key => $postDataRes){
+        foreach ($postDataSplit as $key => $postDataRes) {
             $heroTalent = new HeroTalent();
             $heroTalent->setHero($hero)
                 ->setDescription($postDataRes['description'])
@@ -159,7 +158,7 @@ class HeroTalentController extends AbstractActionController
         $request = $this->getRequest();
         $viewData = [
             'talents' => $talents,
-            'form' => $form
+            'form'    => $form
         ];
 
         if (!$request->isPost()) {

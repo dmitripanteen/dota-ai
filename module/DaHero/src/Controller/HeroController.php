@@ -47,8 +47,7 @@ class HeroController extends AbstractActionController
         $heroTalentRepository,
         $heroAbilityRepository,
         $entityManager
-    )
-    {
+    ) {
         $this->heroRepository = $heroRepository;
         $this->heroTalentRepository = $heroTalentRepository;
         $this->heroAbilityRepository = $heroAbilityRepository;
@@ -120,7 +119,7 @@ class HeroController extends AbstractActionController
             return $this->redirect()->toRoute(
                 'heroes/hero-crud',
                 [
-                    'action'      => 'add',
+                    'action' => 'add',
                 ]
             );
         }
@@ -131,7 +130,7 @@ class HeroController extends AbstractActionController
             return $this->redirect()->toRoute(
                 'heroes',
                 [
-                    'action'      => 'index',
+                    'action' => 'index',
                 ]
             );
         }
@@ -146,14 +145,14 @@ class HeroController extends AbstractActionController
             'form' => $form
         ];
 
-        if (! $request->isPost()) {
+        if (!$request->isPost()) {
             return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($request->getPost());
 
-        if (! $form->isValid()) {
+        if (!$form->isValid()) {
             return $viewData;
         }
 
@@ -185,8 +184,8 @@ class HeroController extends AbstractActionController
 
         return new ViewModel(
             [
-                'hero' => $hero,
-                'talents' => $talents,
+                'hero'      => $hero,
+                'talents'   => $talents,
                 'abilities' => $abilities
             ]
         );
