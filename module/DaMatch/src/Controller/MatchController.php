@@ -83,7 +83,7 @@ class MatchController extends AbstractActionController
         );
     }
 
-    public function fetchMatchesAction()
+    public function fetchMatchAction()
     {
         $queryParams = $this->params()->fromQuery(); //match GET-parameter
         if ($queryParams['match'] && is_numeric($queryParams['match'])) {
@@ -94,7 +94,7 @@ class MatchController extends AbstractActionController
                     'openDotaMatchId' => $matchJSON->match_id,
                 ]
             );
-            if(!$matchFromDb){
+            if (!$matchFromDb) {
                 $match = new Match();
                 $match->setOpenDotaMatchId($matchJSON->match_id)
                     ->setDuration($matchJSON->duration)
@@ -115,42 +115,68 @@ class MatchController extends AbstractActionController
                         'openDotaMatchId' => $matchJSON->match_id,
                     ]
                 );
-                for($i=0; $i<10; $i++){
+                for ($i = 0; $i < 10; $i++) {
                     $matchPlayer = new MatchPlayer();
                     $matchPlayer->setMatch($savedMatch)
-                        ->setBackpack0($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_0))[0]
-                                       ?? null)
-                        ->setBackpack1($this->itemRepository->findById(
-                                           MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_1))[0]
-                                       ?? null)
-                        ->setBackpack2($this->itemRepository->findById(
-                                           MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_2))[0]
-                                       ?? null)
-                        ->setBackpack3($this->itemRepository->findById(
-                                           MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_3))[0]
-                                       ?? null)
-                        ->setHero($this->heroRepository->findById(
-                            MatchHelper::mapOpendotaHeroesToLocal($matchJSON->players[$i]->hero_id)
-                        )[0])
-                        ->setItem0($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_0)
-                        )[0] ?? null)
-                        ->setItem1($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_1)
-                        )[0] ?? null)
-                        ->setItem2($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_2)
-                        )[0] ?? null)
-                        ->setItem3($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_3)
-                        )[0] ?? null)
-                        ->setItem4($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_4)
-                        )[0] ?? null)
-                        ->setItem5($this->itemRepository->findById(
-                            MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_5)
-                        )[0] ?? null)
+                        ->setBackpack0(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_0)
+                            )[0]
+                            ?? null
+                        )
+                        ->setBackpack1(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_1)
+                            )[0]
+                            ?? null
+                        )
+                        ->setBackpack2(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_2)
+                            )[0]
+                            ?? null
+                        )
+                        ->setBackpack3(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_3)
+                            )[0]
+                            ?? null
+                        )
+                        ->setHero(
+                            $this->heroRepository->findById(
+                                MatchHelper::mapOpendotaHeroesToLocal($matchJSON->players[$i]->hero_id)
+                            )[0]
+                        )
+                        ->setItem0(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_0)
+                            )[0] ?? null
+                        )
+                        ->setItem1(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_1)
+                            )[0] ?? null
+                        )
+                        ->setItem2(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_2)
+                            )[0] ?? null
+                        )
+                        ->setItem3(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_3)
+                            )[0] ?? null
+                        )
+                        ->setItem4(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_4)
+                            )[0] ?? null
+                        )
+                        ->setItem5(
+                            $this->itemRepository->findById(
+                                MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_5)
+                            )[0] ?? null
+                        )
                         ->setAccountId($matchJSON->players[$i]->account_id)
                         ->setKills($matchJSON->players[$i]->kills)
                         ->setDeaths($matchJSON->players[$i]->deaths)
@@ -161,9 +187,11 @@ class MatchController extends AbstractActionController
                         ->setIsRadiant($matchJSON->players[$i]->isRadiant)
                         ->setWin($matchJSON->players[$i]->win)
                         ->setLose($matchJSON->players[$i]->lose)
-                        ->setNeutralItem($this->neutralItemRepository->findById(
-                            MatchHelper::mapOpendotaNeutralItemsToLocal($matchJSON->players[$i]->item_neutral)
-                        )[0] ?? null);
+                        ->setNeutralItem(
+                            $this->neutralItemRepository->findById(
+                                MatchHelper::mapOpendotaNeutralItemsToLocal($matchJSON->players[$i]->item_neutral)
+                            )[0] ?? null
+                        );
                     $this->entityManager->persist($matchPlayer);
                     $this->entityManager->flush();
                 }
@@ -190,5 +218,20 @@ class MatchController extends AbstractActionController
         }
 
         return 'Invalid match ID provided';
+    }
+
+    public function showMatchAction()
+    {
+        $matchId = $this->params()->fromRoute('matchId', 0);
+        /**
+         * @var $match Match
+         */
+        $match = $this->matchRepository->findById($matchId);
+
+        return new ViewModel(
+            [
+                'match'      => $match[0],
+            ]
+        );
     }
 }

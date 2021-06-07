@@ -4,6 +4,7 @@ namespace DaMatch;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
 
 return [
     'doctrine'      => [
@@ -38,13 +39,27 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'match-page' => [
+                        'type'    => Segment::class,
+                        'options' => [
+                            'route'    => '/:matchId',
+                            'constraints' => [
+                                'matchId' => '[0-9]*',
+                            ],
+                            'defaults' => [
+                                'controller' => Controller\MatchController::class,
+                                'action'     => 'showMatch',
+                            ]
+                        ],
+                        'may_terminate' => true,
+                    ],
                     'fetch' => [
                         'type'    => Literal::class,
                         'options' => [
                             'route'    => '/fetch',
                             'defaults' => [
                                 'controller' => Controller\MatchController::class,
-                                'action'     => 'fetchMatches',
+                                'action'     => 'fetchMatch',
                             ]
                         ],
                         'may_terminate' => true,
