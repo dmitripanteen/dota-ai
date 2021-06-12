@@ -26,6 +26,11 @@ return [
             Controller\HeroAbilitiesController::class => Controller\Factory\HeroAbilitiesControllerFactory::class,
         ],
     ],
+    'service_manager'                       => [
+        'factories' => [
+            Service\HeroBuilderService::class => Service\Factory\HeroBuilderServiceFactory::class
+        ]
+    ],
     'router'       => include __DIR__ . '/module.config.router.php',
     'view_manager' => [
         'template_path_stack' => [

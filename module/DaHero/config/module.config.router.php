@@ -56,7 +56,32 @@ return [
                     ],
                     'may_terminate' => true,
                 ],
+                'hero-data' => [
+                    'type'          => Segment::class,
+                    'options'       => [
+                        'route'       => '/:heroId/data',
+                        'constraints' => [
+                            'heroId' => '[0-9]*',
+                        ],
+                        'defaults'    => [
+                            'controller' => Controller\HeroController::class,
+                            'action'     => 'heroData',
+                        ]
+                    ],
+                    'may_terminate' => true,
+                ],
             ]
+        ],
+        'hero-builder'    => [
+            'type'          => Literal::class,
+            'options'       => [
+                'route'    => '/heroes/hero-builder',
+                'defaults' => [
+                    'controller' => Controller\HeroController::class,
+                    'action'     => 'heroBuilder',
+                ],
+            ],
+            'may_terminate' => true,
         ],
         'talents'   => [
             'type'          => Segment::class,

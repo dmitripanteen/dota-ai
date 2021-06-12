@@ -1,0 +1,86 @@
+<?php
+/**
+ * @var $heroes       \DaHero\Entity\Hero[]
+ * @var $items        \DaItem\Entity\Item[]
+ * @var $neutralItems \DaItem\Entity\NeutralItem[]
+ */
+?>
+    <h1>Hero builder</h1>
+    <label for="heroes">Choose a hero:</label>
+    <select name="heroes" id="heroes" class="form-select" aria-label="Choose hero">
+        <option value="0" disabled="disabled" selected="selected">Choose hero</option>
+        <? foreach ($heroes as $hero) {
+            echo '<option value="'.$hero->getId().'">'.$hero->getName().'</option>';
+        } ?>
+    </select>
+<br>
+    <label for="level">Hero level:</label>
+    <input type="text" id="level" name="level">
+<br>
+    <label>Talents</label>
+    <div id="talents">
+        <div class="talent talent1" data-talentId=""></div>
+        <div class="talent talent2" data-talentId=""></div>
+        <div class="talent talent3" data-talentId=""></div>
+        <div class="talent talent4" data-talentId=""></div>
+        <div class="talent talent5" data-talentId=""></div>
+        <div class="talent talent6" data-talentId=""></div>
+        <div class="talent talent7" data-talentId=""></div>
+        <div class="talent talent8" data-talentId=""></div>
+    </div>
+
+<?php for($i=1; $i<=6; $i++):?>
+<label for="item<?=$i;?>">Choose an item:</label>
+<select name="item1" id="item<?=$i;?>" class="form-select item" aria-label="Choose item">
+    <option value="0" selected="selected">Choose item</option>
+    <? foreach ($items as $item) {
+        echo '<option value="'.$item->getId().'">'.$item->getName().'</option>';
+    } ?>
+</select>
+<br>
+<?php endfor;?>
+<br>
+<label for="neutral-item">Choose neutral item:</label>
+<select name="neutral-item" id="neutral-item" class="form-select" aria-label="Choose neutral item">
+    <option value="0" disabled="disabled" selected="selected">Choose neutral item</option>
+    <? foreach ($neutralItems as $neutralItem) {
+        echo '<option value="'.$neutralItem->getId().'">'.$neutralItem->getName().'</option>';
+    } ?>
+</select>
+
+<br>
+    <div class="hero-builder">
+        <div class="hero-name"></div>
+        <div class="hero-avatar"></div>
+        <div class="hero-hp"></div>
+        <div class="hero-mp"></div>
+        <div class="hero-hp-regen"></div>
+        <div class="hero-mp-regen"></div>
+        <div class="hero-base-str"></div>
+        <div class="hero-str-gain"></div>
+        <div class="hero-base-agi"></div>
+        <div class="hero-agi-gain"></div>
+        <div class="hero-base-int"></div>
+        <div class="hero-int-gain"></div>
+        <div class="hero-attack"></div>
+        <div class="hero-armor"></div>
+        <div class="hero-armor-percent"></div>
+        <div class="hero-ms"></div>
+        <div class="abilities"></div>
+        <div class="items">
+            <div class="item1"></div>
+            <div class="item2"></div>
+            <div class="item3"></div>
+            <div class="item4"></div>
+            <div class="item5"></div>
+            <div class="item6"></div>
+        </div>
+        <div class="neutral-item"></div>
+    </div>
+    <div id="info"></div>
+    <input type="hidden" id="hero-data" data-type="hero" data-value="">
+    <input type="hidden" id="level-data" data-type="level" data-value="">
+    <input type="hidden" id="talents-data" data-type="talents" data-value="">
+    <input type="hidden" id="items-data" data-type="items" data-value="">
+    <input type="hidden" id="neutral-item-data" data-type="neutral-item" data-value="">
+

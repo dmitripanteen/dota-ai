@@ -3,12 +3,19 @@
 namespace DaHero\Controller;
 
 use DaHero\Entity\Hero;
+use DaHero\Entity\HeroAbility;
+use DaHero\Entity\HeroTalent;
+use DaHero\Form\HeroBuilderForm;
 use DaHero\Form\HeroForm;
 use DaHero\Repository\HeroAbilityRepository;
 use DaHero\Repository\HeroRepository;
 use DaHero\Repository\HeroTalentRepository;
+use DaHero\Service\HeroBuilderService;
+use DaItem\Repository\ItemRepository;
+use DaItem\Repository\NeutralItemRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 
 class HeroController extends AbstractActionController
@@ -35,23 +42,47 @@ class HeroController extends AbstractActionController
     private $entityManager;
 
     /**
+     * @var ItemRepository
+     */
+    protected $itemRepository;
+
+    /**
+     * @var NeutralItemRepository
+     */
+    protected $neutralItemRepository;
+
+    /**
+     * @var HeroBuilderService
+     */
+    protected $heroBuilderService;
+
+    /**
      * HeroController constructor.
      *
      * @param $heroRepository
      * @param $heroTalentRepository
      * @param $heroAbilityRepository
+     * @param $itemRepository
+     * @param $neutralItemRepository
      * @param $entityManager
+     * @param $heroBuilderService
      */
     public function __construct(
         $heroRepository,
         $heroTalentRepository,
         $heroAbilityRepository,
-        $entityManager
+        $itemRepository,
+        $neutralItemRepository,
+        $entityManager,
+        $heroBuilderService
     ) {
         $this->heroRepository = $heroRepository;
         $this->heroTalentRepository = $heroTalentRepository;
         $this->heroAbilityRepository = $heroAbilityRepository;
+        $this->itemRepository = $itemRepository;
+        $this->neutralItemRepository = $neutralItemRepository;
         $this->entityManager = $entityManager;
+        $this->heroBuilderService = $heroBuilderService;
     }
 
     public function indexAction()
@@ -187,6 +218,44 @@ class HeroController extends AbstractActionController
                 'hero'      => $hero,
                 'talents'   => $talents,
                 'abilities' => $abilities
+            ]
+        );
+    }
+
+    public function heroBuilderAction()
+    {
+        $heroes = $this->heroBuilderService->getHeroesList();
+        $items = $this->itemRepository->findBy(
+            [],
+            ['name' => 'ASC']
+        );
+        $neutralItems = $this->neutralItemRepository->findBy(
+            [],
+            ['name' => 'ASC']
+        );
+        return new ViewModel(
+            [
+                'heroes'       => $heroes,
+                'items'        => $items,
+                'neutralItems' => $neutralItems
+            ]
+        );
+    }
+
+    public function heroDataAction()
+    {
+        $heroId = $this->params()->fromRoute('heroId', 0);
+        $level = $this->params()->fromQuery('level', 1);
+        $level = $level < 1 ? 1 : ($level > 30 ? 30 : $level);
+        $talents = $this->params()->fromQuery('talents', '');
+        $items = $this->params()->fromQuery('items', '');
+        $neutralItem = $this->params()->fromQuery('neutral-item', '');
+        $hero = $this->heroRepository->findById($heroId)[0];
+
+        $heroData = $this->heroBuilderService->computeHeroStats($hero, $level, $talents, $items, $neutralItem);
+        return new JsonModel(
+            [
+                'hero' => $heroData,
             ]
         );
     }
