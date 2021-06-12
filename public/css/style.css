@@ -31,3 +31,28 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
+
+.hero-block{
+    width: 165px;
+    height: 93px;
+    text-align: center;
+    position: relative;
+}
+.hero-block a{
+    color: #fff;
+    font-weight: bold;
+}
+.hero-block a:hover{
+    color: #dedede;
+}
+.hero-block img{
+    width: 100%;
+    height: 100%;
+}
+.hero-block span{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-shadow: 1px 1px 0 #000000, -1px 1px 0 #000000, -1px -1px 0 #000000, 1px -1px 0 #000000;
+}

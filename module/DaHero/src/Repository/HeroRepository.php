@@ -15,7 +15,19 @@ class HeroRepository extends CustomRepository
             ->from(Hero::class, 'h')
             ->where('h.alias = :alias')
             ->setParameter('alias', $alias);
-        $neutralItem = $queryBuilder->getQuery()->getOneOrNullResult();
-        return $neutralItem;
+        $hero= $queryBuilder->getQuery()->getOneOrNullResult();
+        return $hero;
+    }
+
+    public function findByMainAttr(int $mainAttr)
+    {
+        $entityManager = $this->getEntityManager();
+        $qb = $entityManager->createQueryBuilder();
+        $qb->select('h')
+            ->from(Hero::class, 'h')
+            ->where('h.mainAttr = :mainAttr')
+            ->setParameter('mainAttr', $mainAttr);
+        $heroes = $qb->getQuery()->getArrayResult();
+        return $heroes;
     }
 }

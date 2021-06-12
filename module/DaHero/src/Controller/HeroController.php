@@ -5,7 +5,6 @@ namespace DaHero\Controller;
 use DaHero\Entity\Hero;
 use DaHero\Entity\HeroAbility;
 use DaHero\Entity\HeroTalent;
-use DaHero\Form\HeroBuilderForm;
 use DaHero\Form\HeroForm;
 use DaHero\Repository\HeroAbilityRepository;
 use DaHero\Repository\HeroRepository;
@@ -87,10 +86,16 @@ class HeroController extends AbstractActionController
 
     public function indexAction()
     {
-        $heroes = $this->heroRepository->findAll();
+        $strHeroes = $this->heroRepository->findByMainAttr(1);
+        $agiHeroes = $this->heroRepository->findByMainAttr(2);
+        $intHeroes = $this->heroRepository->findByMainAttr(3);
         return new ViewModel(
             [
-                'heroes' => $heroes
+                'heroes' => [
+                    'str' => $strHeroes,
+                    'agi' => $agiHeroes,
+                    'int' => $intHeroes,
+                ]
             ]
         );
     }
