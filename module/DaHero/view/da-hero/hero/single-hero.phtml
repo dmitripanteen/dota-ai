@@ -4,16 +4,186 @@
  * @var $talents   \DaHero\Entity\HeroTalent[]
  * @var $abilities \DaHero\Entity\HeroAbility[]
  */; ?>
-<h1><?= $hero->getName(); ?></h1>
-
-<?php var_dump($hero); ?>
-<hr>
-<?php var_dump($talents); ?>
+<div class="p-3 text-center">
+    <h1><?= $hero->getName(); ?></h1>
+</div>
+<div class="row">
+    <div class="col-8">
+        <h2>Bio</h2>
+        <hr>
+        <?=str_replace("\n", "<br>", $hero->getLore());?>
+    </div>
+    <div class="col-4" style="padding-left:0;padding-right:0;overflow:hidden;">
+        <div class="hero-profile">
+            <h4 class="p-2 pb-4"><?= $hero->getName(); ?></h4>
+            <img class="avatar" src="<?=$hero->getImage();?>">
+            <h5 class="p-2">Attributes</h5>
+            <div class="row pt-3 pb-3">
+                <div class="attribute col text-center">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" <?php if($hero->getMainAttribute()==1):?>class="main"<?php endif;?>>
+                    <br>
+                    <b><?=$hero->getBaseStr();?></b> + <small><?=$hero->getStrGain();?></small>
+                </div>
+                <div class="attribute col text-center">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" <?php if($hero->getMainAttribute()==2):?>class="main"<?php endif;?>>
+                    <br>
+                    <b><?=$hero->getBaseAgi();?></b> + <small><?=$hero->getAgiGain();?></small>
+                </div>
+                <div class="attribute col text-center">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" <?php if($hero->getMainAttribute()==3):?>class="main"<?php endif;?>>
+                    <br>
+                    <b><?=$hero->getBaseInt();?></b> + <small><?=$hero->getIntGain();?></small>
+                </div>
+            </div>
+            <h5 class="p-2">Base stats</h5>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Base damage</div>
+                <div class="col text-left"><?=$hero->getBaseDamageMin();?> - <?=$hero->getBaseDamageMax();?></div>
+            </div>
+            <div class="row pt-1 pb-1 bg-light">
+                <div class="col text-right font-weight-bold">Base health</div>
+                <div class="col text-left"><?=$hero->getBaseHp();?></div>
+            </div>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Base mana</div>
+                <div class="col text-left">75</div>
+            </div>
+            <div class="row pt-1 pb-1 bg-light">
+                <div class="col text-right font-weight-bold">Base armor</div>
+                <div class="col text-left"><?=$hero->getBaseArmor();?></div>
+            </div>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Magic resistance</div>
+                <div class="col text-left">25%</div>
+            </div>
+            <div class="row pt-1 pb-1 bg-light">
+                <div class="col text-right font-weight-bold">Movement speed</div>
+                <div class="col text-left"><?=$hero->getBaseMoveSpeed();?></div>
+            </div>
+            <h5 class="p-2">Level changes</h5>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Level</div>
+                <div class="col text-center">1</div>
+                <div class="col text-center">15</div>
+                <div class="col text-center">25</div>
+                <div class="col text-center">30</div>
+            </div>
+            <div class="row pt-1 pb-1 bg-light">
+                <div class="col text-right font-weight-bold">HP</div>
+                <div class="col text-center"><?=$hero_computed['lvl1']->getVariables()['hero']['computed']['currentHp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl15']->getVariables()['hero']['computed']['currentHp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl25']->getVariables()['hero']['computed']['currentHp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl30']->getVariables()['hero']['computed']['currentHp'];?></div>
+            </div>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Mana</div>
+                <div class="col text-center"><?=$hero_computed['lvl1']->getVariables()['hero']['computed']['currentMp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl15']->getVariables()['hero']['computed']['currentMp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl25']->getVariables()['hero']['computed']['currentMp'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl30']->getVariables()['hero']['computed']['currentMp'];?></div>
+            </div>
+            <div class="row pt-1 pb-1 bg-light">
+                <div class="col text-right font-weight-bold">Armor</div>
+                <div class="col text-center"><?=$hero_computed['lvl1']->getVariables()['hero']['computed']['currentArmor'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl15']->getVariables()['hero']['computed']['currentArmor'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl25']->getVariables()['hero']['computed']['currentArmor'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl30']->getVariables()['hero']['computed']['currentArmor'];?></div>
+            </div>
+            <div class="row pt-1 pb-1">
+                <div class="col text-right font-weight-bold">Damage</div>
+                <div class="col text-center"><?=$hero_computed['lvl1']->getVariables()['hero']['computed']['currentDmgMin'];?>-<?=$hero_computed['lvl1']->getVariables()['hero']['computed']['currentDmgMax'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl15']->getVariables()['hero']['computed']['currentDmgMin'];?>-<?=$hero_computed['lvl15']->getVariables()['hero']['computed']['currentDmgMax'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl25']->getVariables()['hero']['computed']['currentDmgMin'];?>-<?=$hero_computed['lvl25']->getVariables()['hero']['computed']['currentDmgMax'];?></div>
+                <div class="col text-center"><?=$hero_computed['lvl30']->getVariables()['hero']['computed']['currentDmgMin'];?>-<?=$hero_computed['lvl30']->getVariables()['hero']['computed']['currentDmgMax'];?></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5"></div>
+<h2>Abilities</h2>
 <hr>
 <?php foreach ($abilities as $ability): ?>
-    <img src="<?= $ability->getImage(); ?>">
-    <video class="heropage_HeroPortrait_22nJ5" autoplay="" preload="auto"
-           loop="" playsinline="" poster="<?= $ability->getImage(); ?>"><
-        <source type="video/mp4" src="<?= $ability->getVideo(); ?>">
-    </video>
+    <?php if($ability->getAbilityNumber()!==0):?>
+        <div class="ability border border-primary mb-5">
+            <div class="bg-lightblue ability-header p-2"><?=ucfirst($ability->getAbilityName());?></div>
+            <div class="row pl-2 pr-2">
+                <div class="col-2">
+                    <img class="pt-2" src="<?= $ability->getImage(); ?>">
+                </div>
+                <div class="col-10">
+                    <div class="ability-descr pt-2"><?=$ability->getDescription();?></div>
+                    <div class="ability-video pt-2 pb-2">
+                        <video class="heropage-video" autoplay="" preload="auto"
+                               loop="" playsinline="" muted=""
+                               poster="<?= $ability->getImage(); ?>">
+                            <source type="video/mp4" src="<?= $ability->getVideo(); ?>">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif;?>
 <?php endforeach; ?>
+<?php foreach ($abilities as $ability): ?>
+    <?php if($ability->getAbilityNumber()==0):?>
+        <div class="ability border border-primary mb-5">
+            <div class="bg-lightyellow ability-header p-2"><?=ucfirst($ability->getAbilityName());?></div>
+            <div class="row pl-2 pr-2">
+                <div class="col-2">
+                    <img class="pt-2" src="<?= $ability->getImage(); ?>">
+                </div>
+                <div class="col-10">
+                    <div class="ability-descr pt-2"><?=$ability->getDescription();?></div>
+                    <div class="ability-video pt-2 pb-2">
+                        <video class="heropage-video" autoplay="" preload="auto"
+                               loop="" playsinline="" muted=""
+                               poster="<?= $ability->getImage(); ?>">
+                            <source type="video/mp4" src="<?= $ability->getVideo(); ?>">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif;?>
+<?php endforeach; ?>
+<h2>Talents</h2>
+<hr>
+<table class="talents-table" cellpadding="5">
+    <tbody>
+        <tr>
+            <td style="background-color: #3E4447" colspan="3" height="40px">
+                <span style="color: white; font-size:14pt">Talent Tree</span>
+            </td>
+        </tr>
+        <tr class="talent-row">
+            <td width="280"><?=$talents[6]->getDescription();?></td>
+            <td class="talent">
+                <span>25</span>
+            </td>
+            <td width="280"><?=$talents[7]->getDescription();?></td>
+        </tr>
+        <tr class="talent-row">
+            <td width="280"><?=$talents[4]->getDescription();?></td>
+            <td class="talent">
+                <span>20</span>
+            </td>
+            <td width="280"><?=$talents[5]->getDescription();?></td>
+        </tr>
+        <tr class="talent-row">
+            <td width="280"><?=$talents[2]->getDescription();?></td>
+            <td class="talent">
+                <span>15</span>
+            </td>
+            <td width="280"><?=$talents[3]->getDescription();?></td>
+        </tr>
+        <tr class="talent-row">
+            <td width="280"><?=$talents[0]->getDescription();?></td>
+            <td class="talent">
+                <span>10</span>
+            </td>
+            <td width="280"><?=$talents[1]->getDescription();?></td>
+        </tr>
+    </tbody>
+</table>
+
+

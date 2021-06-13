@@ -217,12 +217,17 @@ class HeroController extends AbstractActionController
         $hero = $this->heroRepository->findOneByAlias($heroAlias);
         $talents = $this->heroTalentRepository->findTalentsByHero($hero);
         $abilities = $this->heroAbilityRepository->findAbilitiesByHero($hero);
-
         return new ViewModel(
             [
-                'hero'      => $hero,
-                'talents'   => $talents,
-                'abilities' => $abilities
+                'hero'          => $hero,
+                'hero_computed' => [
+                    'lvl1'  => $this->heroDataAction($hero->getId(), 1),
+                    'lvl15' => $this->heroDataAction($hero->getId(), 15),
+                    'lvl25' => $this->heroDataAction($hero->getId(), 25),
+                    'lvl30' => $this->heroDataAction($hero->getId(), 30),
+                ],
+                'talents'       => $talents,
+                'abilities'     => $abilities
             ]
         );
     }
@@ -247,10 +252,10 @@ class HeroController extends AbstractActionController
         );
     }
 
-    public function heroDataAction()
+    public function heroDataAction($heroId = null, $level=null)
     {
-        $heroId = $this->params()->fromRoute('heroId', 0);
-        $level = $this->params()->fromQuery('level', 1);
+        $heroId = $heroId ?? $this->params()->fromRoute('heroId', 0);
+        $level = $level ?? $this->params()->fromQuery('level', 1);
         $level = $level < 1 ? 1 : ($level > 30 ? 30 : $level);
         $talents = $this->params()->fromQuery('talents', '');
         $items = $this->params()->fromQuery('items', '');
