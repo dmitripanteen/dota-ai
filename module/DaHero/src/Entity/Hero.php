@@ -263,7 +263,7 @@ class Hero extends AbstractEntity
      */
     public function getBaseInt()
     {
-        return $this->baseStr;
+        return $this->baseInt;
     }
 
     /**
