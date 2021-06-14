@@ -173,6 +173,7 @@ class HeroController extends AbstractActionController
 
         $form = new HeroForm();
         $form->bind($hero);
+        $form->setAttribute('class', 'hero-form');
         $form->get('submit')->setValue('Edit');
 
         $request = $this->getRequest();

@@ -35,6 +35,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Name'
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -45,11 +48,16 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Lore',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                    'rows' => 10,
+                ),
             ]
         );
 
         $select = new Select('mainAttr');
         $select->setLabel('Main attribute');
+        $select->setAttribute('class', 'form-control');
         $select->setValueOptions(
             [
                 [
@@ -81,6 +89,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base strength',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -91,6 +102,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Strength gain per level',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -101,6 +115,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base agility',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -111,6 +128,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Agility gain per level',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -121,6 +141,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base intelligence',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -131,6 +154,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Intelligence gain per level',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -141,6 +167,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base damage (min)',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -151,6 +180,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base damage (max)',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -161,6 +193,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base HP',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -171,6 +206,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base Armor',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -181,6 +219,9 @@ class HeroForm extends Form
                 'options' => [
                     'label' => 'Base move speed',
                 ],
+                'attributes' => array(
+                    'class' => 'form-control',
+                ),
             ]
         );
 
@@ -191,7 +232,7 @@ class HeroForm extends Form
                 'attributes' => [
                     'value' => 'Save',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-4 pr-4',
                 ],
             ]
         );
@@ -252,7 +293,7 @@ class HeroForm extends Form
                         'options' => [
                             'encoding' => 'UTF-8',
                             'min'      => 1,
-                            'max'      => 1000,
+                            'max'      => 10000,
                         ],
                     ],
                 ],
