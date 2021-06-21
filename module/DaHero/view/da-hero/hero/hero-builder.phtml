@@ -5,82 +5,181 @@
  * @var $neutralItems \DaItem\Entity\NeutralItem[]
  */
 ?>
+<div class="p-3 text-center">
     <h1>Hero builder</h1>
+</div>
+<div class="form-group">
     <label for="heroes">Choose a hero:</label>
-    <select name="heroes" id="heroes" class="form-select" aria-label="Choose hero">
+    <select name="heroes" id="heroes" class="form-control">
         <option value="0" disabled="disabled" selected="selected">Choose hero</option>
         <? foreach ($heroes as $hero) {
             echo '<option value="'.$hero->getId().'">'.$hero->getName().'</option>';
         } ?>
     </select>
-<br>
+</div>
+
+<div class="hero-builder-area animated fadeIn">
+    <div class="hero-avatar-header mb-3">
+        <div class="avatar-shadow"></div>
+    </div>
     <label for="level">Hero level:</label>
     <input type="text" id="level" name="level">
-<br>
-    <label>Talents</label>
-    <div id="talents">
-        <div class="talent talent1" data-talentId=""></div>
-        <div class="talent talent2" data-talentId=""></div>
-        <div class="talent talent3" data-talentId=""></div>
-        <div class="talent talent4" data-talentId=""></div>
-        <div class="talent talent5" data-talentId=""></div>
-        <div class="talent talent6" data-talentId=""></div>
-        <div class="talent talent7" data-talentId=""></div>
-        <div class="talent talent8" data-talentId=""></div>
-    </div>
-
-<?php for($i=1; $i<=6; $i++):?>
-<label for="item<?=$i;?>">Choose an item:</label>
-<select name="item1" id="item<?=$i;?>" class="form-select item" aria-label="Choose item">
-    <option value="0" selected="selected">Choose item</option>
-    <? foreach ($items as $item) {
-        echo '<option value="'.$item->getId().'">'.$item->getName().'</option>';
-    } ?>
-</select>
-<br>
-<?php endfor;?>
-<br>
-<label for="neutral-item">Choose neutral item:</label>
-<select name="neutral-item" id="neutral-item" class="form-select" aria-label="Choose neutral item">
-    <option value="0" disabled="disabled" selected="selected">Choose neutral item</option>
-    <? foreach ($neutralItems as $neutralItem) {
-        echo '<option value="'.$neutralItem->getId().'">'.$neutralItem->getName().'</option>';
-    } ?>
-</select>
-
-<br>
-    <div class="hero-builder">
-        <div class="hero-name"></div>
-        <div class="hero-avatar"></div>
-        <div class="hero-hp"></div>
-        <div class="hero-mp"></div>
-        <div class="hero-hp-regen"></div>
-        <div class="hero-mp-regen"></div>
-        <div class="hero-base-str"></div>
-        <div class="hero-str-gain"></div>
-        <div class="hero-base-agi"></div>
-        <div class="hero-agi-gain"></div>
-        <div class="hero-base-int"></div>
-        <div class="hero-int-gain"></div>
-        <div class="hero-attack"></div>
-        <div class="hero-armor"></div>
-        <div class="hero-armor-percent"></div>
-        <div class="hero-ms"></div>
-        <div class="abilities"></div>
-        <div class="items">
-            <div class="item1"></div>
-            <div class="item2"></div>
-            <div class="item3"></div>
-            <div class="item4"></div>
-            <div class="item5"></div>
-            <div class="item6"></div>
+    <div class="row">
+        <div class="col">
+            <div class="p-3 text-center">
+                <h3>Choose talents:</h3>
+            </div>
+            <div id="talents">
+                <table class="talents-table cursor-pointer" cellpadding="5">
+                    <tbody>
+                    <tr class="talent-row">
+                        <td width="280">
+                            <div class="talent talent7 no-bg" data-talentId=""></div>
+                        </td>
+                        <td class="talent">
+                            <span>25</span>
+                        </td>
+                        <td width="280">
+                            <div class="talent talent8 no-bg" data-talentId=""></div>
+                        </td>
+                    </tr>
+                    <tr class="talent-row">
+                        <td width="280">
+                            <div class="talent talent5 no-bg" data-talentId=""></div>
+                        </td>
+                        <td class="talent">
+                            <span>20</span>
+                        </td>
+                        <td width="280">
+                            <div class="talent talent6 no-bg" data-talentId=""></div>
+                        </td>
+                    </tr>
+                    <tr class="talent-row">
+                        <td width="280">
+                            <div class="talent talent3 no-bg" data-talentId=""></div>
+                        </td>
+                        <td class="talent">
+                            <span>15</span>
+                        </td>
+                        <td width="280">
+                            <div class="talent talent4 no-bg" data-talentId=""></div>
+                        </td>
+                    </tr>
+                    <tr class="talent-row">
+                        <td width="280">
+                            <div class="talent talent1 no-bg" data-talentId=""></div>
+                        </td>
+                        <td class="talent">
+                            <span>10</span>
+                        </td>
+                        <td width="280">
+                            <div class="talent talent2 no-bg" data-talentId=""></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="neutral-item"></div>
+        <div class="col">
+            <div class="p-3 text-center">
+                <h3>Equip items:</h3>
+            </div>
+            <div class="mx-auto" style="width: 320px;">
+                <?php for($i=1; $i<=6; $i++):?>
+                    <label for="item<?=$i;?>">Choose an item:</label>
+                    <select name="item1" id="item<?=$i;?>" class="form-select item" aria-label="Choose item">
+                        <option value="0" selected="selected">Choose item</option>
+                        <? foreach ($items as $item) {
+                            echo '<option value="'.$item->getId().'">'.$item->getName().'</option>';
+                        } ?>
+                    </select>
+                    <br>
+                <?php endfor;?>
+                <br>
+                <label for="neutral-item">Choose neutral item:</label>
+                <select name="neutral-item" id="neutral-item" class="form-select" aria-label="Choose neutral item">
+                    <option value="0" disabled="disabled" selected="selected">Choose neutral item</option>
+                    <? foreach ($neutralItems as $neutralItem) {
+                        echo '<option value="'.$neutralItem->getId().'">'.$neutralItem->getName().'</option>';
+                    } ?>
+                </select>
+            </div>
+        </div>
     </div>
-    <div id="info"></div>
-    <input type="hidden" id="hero-data" data-type="hero" data-value="">
-    <input type="hidden" id="level-data" data-type="level" data-value="">
-    <input type="hidden" id="talents-data" data-type="talents" data-value="">
-    <input type="hidden" id="items-data" data-type="items" data-value="">
-    <input type="hidden" id="neutral-item-data" data-type="neutral-item" data-value="">
+    <hr class="mt-5 mb-5">
+    <div class="hero-builder row">
+        <div class="col-3 position-relative pl-0 pr-0">
+            <div class="hero-name text-center"></div>
+            <div class="hero-avatar"></div>
+            <div class="avatar-shadow"></div>
+            <div class="hero-stats-first text-right">
+                <div class="stat-row">
+                    <div class="hero-attack"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-armor"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-armor-percent"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-ms"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_movement_speed.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-curr-str"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-curr-agi"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png">
+                </div>
+                <div class="stat-row">
+                    <div class="hero-curr-int"></div>
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png">
+                </div>
+            </div>
+        </div>
+        <div class="col-6 pl-0 pr-0">
+            <div style="height:24px"></div>
+            <div class="hero-stats-second position-relative">
+                <div class="abilities row pl-3 pr-3 pt-3"></div>
+                <div class="hp-bar">
+                    <div class="hero-hp"></div>
+                    <div class="hero-hp-regen"></div>
+                </div>
+                <div class="mp-bar">
+                    <div class="hero-mp"></div>
+                    <div class="hero-mp-regen"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 pl-0 pr-0">
+            <div style="height:24px"></div>
+            <div class="hero-stats-third position-relative">
+                <div class="items row pl-4 pr-3 pt-3">
+                    <div class="item-image m-1 item1"></div>
+                    <div class="item-image m-1 item2"></div>
+                    <div class="item-image m-1 item3"></div>
+                    <div class="item-image m-1 item4"></div>
+                    <div class="item-image m-1 item5"></div>
+                    <div class="item-image m-1 item6"></div>
+                </div>
+                <div class="neutral-item"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="info"></div>
+<input type="hidden" id="hero-data" data-type="hero" data-value="">
+<input type="hidden" id="level-data" data-type="level" data-value="">
+<input type="hidden" id="talents-data" data-type="talents" data-value="">
+<input type="hidden" id="items-data" data-type="items" data-value="">
+<input type="hidden" id="neutral-item-data" data-type="neutral-item" data-value="">
 

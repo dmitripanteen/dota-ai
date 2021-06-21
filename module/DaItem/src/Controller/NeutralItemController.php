@@ -7,6 +7,7 @@ use DaItem\Form\NeutralItemForm;
 use DaItem\Repository\NeutralItemRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 
 class NeutralItemController extends AbstractActionController
@@ -162,6 +163,16 @@ class NeutralItemController extends AbstractActionController
             [
                 'action'      => 'singleItem',
                 'neutralItem' => $itemAlias
+            ]
+        );
+    }
+
+    public function neutralItemDataAction(){
+        $item = $this->params()->fromQuery('neutral-item', '');
+        $neutralItem = $this->neutralItemRepository->findById($item)[0];
+        return new JsonModel(
+            [
+                'item' => $neutralItem->getImage(),
             ]
         );
     }

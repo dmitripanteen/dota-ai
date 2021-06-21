@@ -7,6 +7,7 @@ use DaItem\Form\ItemForm;
 use DaItem\Repository\ItemRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 
 class ItemController extends AbstractActionController
@@ -176,6 +177,23 @@ class ItemController extends AbstractActionController
             [
                 'action' => 'singleItem',
                 'item'   => $itemAlias
+            ]
+        );
+    }
+
+    public function itemDataAction(){
+        $items = $this->params()->fromQuery('items', '');
+        $itemImagesArr=[];
+        if($items) {
+            $itemIdsFromQuery = explode(',', $items);
+            foreach ($itemIdsFromQuery as $itemFromQuery) {
+                $itemRes = $this->itemRepository->findById($itemFromQuery)[0];
+                $itemImagesArr[]=$itemRes->getImage();
+            }
+        }
+        return new JsonModel(
+            [
+                'items' => $itemImagesArr,
             ]
         );
     }

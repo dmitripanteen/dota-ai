@@ -106,7 +106,6 @@ class HeroBuilderService
             $talentIdsFromQuery = explode(',', $talentsFromQuery);
             foreach ($talentIdsFromQuery as $talentFromQuery) {
                 $talentRes = $this->heroTalentRepository->findById($talentFromQuery);
-                var_dump($talentRes);
                 $statsAmplifiers['dmg'] += $talentRes->getDmgIncrease();
                 $statsAmplifiers['armor'] += $talentRes->getArmorIncrease();
                 $statsAmplifiers['ms'] += $talentRes->getMsIncrease();

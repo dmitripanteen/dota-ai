@@ -56,6 +56,17 @@ return [
                     ],
                     'may_terminate' => true,
                 ],
+                'item-data' => [
+                    'type'          => Segment::class,
+                    'options'       => [
+                        'route'       => '/data',
+                        'defaults'    => [
+                            'controller' => Controller\ItemController::class,
+                            'action'     => 'itemData',
+                        ]
+                    ],
+                    'may_terminate' => true,
+                ],
             ]
         ],
         'neutral-items' => [
@@ -103,6 +114,17 @@ return [
                         'defaults' => [
                             'controller' => Controller\NeutralItemController::class,
                             'action'     => 'add',
+                        ]
+                    ],
+                    'may_terminate' => true,
+                ],
+                'neutral-item-data' => [
+                    'type'          => Segment::class,
+                    'options'       => [
+                        'route'       => '/data',
+                        'defaults'    => [
+                            'controller' => Controller\NeutralItemController::class,
+                            'action'     => 'neutralItemData',
                         ]
                     ],
                     'may_terminate' => true,
