@@ -2,37 +2,37 @@
 /**
  * @var $hero \DaHero\Entity\Hero
  */; ?>
-<div class="p-3 text-center">
-    <h1 class="mb-3"><?=$hero->getName();?>: Add talents</h1>
-</div>
+    <div class="p-3 text-center">
+        <h1 class="mb-3"><?= $hero->getName(); ?>: Add talents</h1>
+    </div>
 <?php echo $this->form()->openTag($form);
-$elements = $form->getElements();?>
-<table class="table table-sm talents-form-table">
-    <thead>
+$elements = $form->getElements(); ?>
+    <table class="table table-sm talents-form-table">
+        <thead>
         <tr class="text-center">
-            <?php foreach ($elements as $element):?>
-                <?php if ($element->getName()!=='id' && $element->getName()!=='hero_id' && $element->getName()!=='submit'):?>
-                    <td class="<?=$element->getName();?>"><?=$element->getLabel();?></td>
-                <?php endif;?>
-            <?php endforeach;?>
+            <?php foreach ($elements as $element): ?>
+                <?php if ($element->getName() !== 'id' && $element->getName() !== 'hero_id' && $element->getName() !== 'submit'): ?>
+                    <td class="<?= $element->getName(); ?>"><?= $element->getLabel(); ?></td>
+                <?php endif; ?>
+            <?php endforeach; ?>
         </tr>
-    </thead>
-    <tbody>
-        <?php for ($i = 0; $i < 8; $i++):?>
+        </thead>
+        <tbody>
+        <?php for ($i = 0; $i < 8; $i++): ?>
             <tr>
-                <?php foreach ($elements as $element):?>
-                    <?php if ($element->getName()!=='id' && $element->getName()!=='hero_id' && $element->getName()!=='submit'):?>
+                <?php foreach ($elements as $element): ?>
+                    <?php if ($element->getName() !== 'id' && $element->getName() !== 'hero_id' && $element->getName() !== 'submit'): ?>
                         <td>
-                            <?=str_replace('name="'.$element->getName().'"', 'name="'.$element->getName().'' . $i . '"', $this->formElement($element));?>
+                            <?= str_replace('name="' . $element->getName() . '"', 'name="' . $element->getName() . '' . $i . '"', $this->formElement($element)); ?>
                         </td>
-                    <?php elseif ($element->getName()=='id'):?>
-                        <?=str_replace('name="'.$element->getName().'"', 'name="'.$element->getName().'' . $i . '"', $this->formElement($element));?>
-                    <?php endif;?>
-                <?php endforeach;?>
+                    <?php elseif ($element->getName() == 'id'): ?>
+                        <?= str_replace('name="' . $element->getName() . '"', 'name="' . $element->getName() . '' . $i . '"', $this->formElement($element)); ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </tr>
-        <?php endfor;?>
-    </tbody>
-</table>
+        <?php endfor; ?>
+        </tbody>
+    </table>
 <?php
 echo $this->formRow($form->get('hero_id'));
 echo $this->formRow($form->get('submit'));

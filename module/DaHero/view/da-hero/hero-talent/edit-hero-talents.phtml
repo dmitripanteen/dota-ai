@@ -2,42 +2,40 @@
 /**
  * @var $hero \DaHero\Entity\Hero
  */; ?>
-    <h1>Edit hero talents</h1>
+    <div class="p-3 text-center">
+        <h1 class="mb-3"><?= $hero->getName(); ?>: Edit list of talents</h1>
+    </div>
 <?php echo $this->form()->openTag($form);
-$id = $form->get('id');
-$heroId = $form->get('hero_id');
-$level = $form->get('level');
-$description = $form->get('description');
-$dmgIncrease = $form->get('dmgIncrease');
-$armorIncrease = $form->get('armorIncrease');
-$msIncrease = $form->get('msIncrease');
-$strIncrease = $form->get('strIncrease');
-$agiIncrease = $form->get('agiIncrease');
-$intIncrease = $form->get('intIncrease');
-$hpIncrease = $form->get('hpIncrease');
-$mpIncrease = $form->get('mpIncrease');
-$hpRegenIncrease = $form->get('hpRegenIncrease');
-$mpRegenIncrease = $form->get('mpRegenIncrease');
-$submit = $form->get('submit');
-for ($i = 0; $i < 8; $i++) {
-    echo '<fieldset>';
-    $form->bind($talents[$i]);
-    echo str_replace('name="id"', 'name="id' . $i . '"', $this->formRow($id));
-    echo str_replace('name="level"', 'name="level' . $i . '"', $this->formRow($level));
-    echo str_replace('name="description"', 'name="description' . $i . '"', $this->formRow($description));
-    echo str_replace('name="dmgIncrease"', 'name="dmgIncrease' . $i . '"', $this->formRow($dmgIncrease));
-    echo str_replace('name="armorIncrease"', 'name="armorIncrease' . $i . '"', $this->formRow($armorIncrease));
-    echo str_replace('name="msIncrease"', 'name="msIncrease' . $i . '"', $this->formRow($msIncrease));
-    echo str_replace('name="strIncrease"', 'name="strIncrease' . $i . '"', $this->formRow($strIncrease));
-    echo str_replace('name="agiIncrease"', 'name="agiIncrease' . $i . '"', $this->formRow($agiIncrease));
-    echo str_replace('name="intIncrease"', 'name="intIncrease' . $i . '"', $this->formRow($intIncrease));
-    echo str_replace('name="hpIncrease"', 'name="hpIncrease' . $i . '"', $this->formRow($hpIncrease));
-    echo str_replace('name="mpIncrease"', 'name="mpIncrease' . $i . '"', $this->formRow($mpIncrease));
-    echo str_replace('name="hpRegenIncrease"', 'name="hpRegenIncrease' . $i . '"', $this->formRow($hpRegenIncrease));
-    echo str_replace('name="mpRegenIncrease"', 'name="mpRegenIncrease' . $i . '"', $this->formRow($mpRegenIncrease));
-    echo '</fieldset>';
-}
-echo $this->formRow($heroId);
-echo $this->formRow($submit);
+$elements = $form->getElements(); ?>
+    <table class="table table-sm talents-form-table">
+        <thead>
+        <tr class="text-center">
+            <?php foreach ($elements as $element): ?>
+                <?php if ($element->getName() !== 'id' && $element->getName() !== 'hero_id' && $element->getName() !== 'submit'): ?>
+                    <td class="<?= $element->getName(); ?>"><?= $element->getLabel(); ?></td>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+        <tbody>
+        <?php for ($i = 0; $i < 8; $i++): ?>
+            <?php $form->bind($talents[$i]);?>
+            <tr>
+                <?php foreach ($elements as $element): ?>
+                    <?php if ($element->getName() !== 'id' && $element->getName() !== 'hero_id' && $element->getName() !== 'submit'): ?>
+                        <td>
+                            <?= str_replace('name="' . $element->getName() . '"', 'name="' . $element->getName() . '' . $i . '"', $this->formElement($element)); ?>
+                        </td>
+                    <?php elseif ($element->getName() == 'id'): ?>
+                        <?= str_replace('name="' . $element->getName() . '"', 'name="' . $element->getName() . '' . $i . '"', $this->formElement($element)); ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </tr>
+        <?php endfor; ?>
+        </tbody>
+    </table>
+<?php
+echo $this->formRow($form->get('hero_id'));
+echo $this->formRow($form->get('submit'));
 echo $this->form()->closeTag();
 ?>

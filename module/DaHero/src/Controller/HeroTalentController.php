@@ -165,7 +165,8 @@ class HeroTalentController extends AbstractActionController
         $request = $this->getRequest();
         $viewData = [
             'talents' => $talents,
-            'form'    => $form
+            'form'    => $form,
+            'hero'    => $hero,
         ];
 
         if (!$request->isPost()) {
