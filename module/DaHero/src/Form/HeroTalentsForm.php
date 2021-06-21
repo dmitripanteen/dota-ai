@@ -37,25 +37,29 @@ class HeroTalentsForm extends Form
                 'name'       => 'hero_id',
                 'type'       => 'hidden',
                 'attributes' => [
-                    'value' => $hero->getId()
+                    'value' => $hero->getId(),
+                    'class' => 'form-control',
                 ],
             ]
         );
 
         $this->add(
-            array(
+            [
                 'type'    => 'Laminas\Form\Element\Select',
                 'name'    => 'level',
-                'options' => array(
+                'options' => [
                     'label'         => 'Level',
-                    'value_options' => array(
+                    'value_options' => [
                         '10' => '10',
                         '15' => '15',
                         '20' => '20',
                         '25' => '25',
-                    ),
-                )
-            )
+                    ],
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
+            ]
         );
 
         $this->add(
@@ -64,6 +68,9 @@ class HeroTalentsForm extends Form
                 'type'    => 'text',
                 'options' => [
                     'label' => 'Description'
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -76,7 +83,8 @@ class HeroTalentsForm extends Form
                     'label' => '+Dmg',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -89,7 +97,8 @@ class HeroTalentsForm extends Form
                     'label' => '+Armor',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -102,7 +111,8 @@ class HeroTalentsForm extends Form
                     'label' => '+MS',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -115,7 +125,8 @@ class HeroTalentsForm extends Form
                     'label' => '+Str',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -128,7 +139,8 @@ class HeroTalentsForm extends Form
                     'label' => '+Agi',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -141,7 +153,8 @@ class HeroTalentsForm extends Form
                     'label' => '+Int',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -154,7 +167,8 @@ class HeroTalentsForm extends Form
                     'label' => '+HP',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -167,7 +181,8 @@ class HeroTalentsForm extends Form
                     'label' => '+MP',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -180,7 +195,8 @@ class HeroTalentsForm extends Form
                     'label' => '+HpRegen',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -193,7 +209,8 @@ class HeroTalentsForm extends Form
                     'label' => '+MpRegen',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -205,7 +222,7 @@ class HeroTalentsForm extends Form
                 'attributes' => [
                     'value' => 'Save',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-5 pr-5',
                 ],
             ]
         );

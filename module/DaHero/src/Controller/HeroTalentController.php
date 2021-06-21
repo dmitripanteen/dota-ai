@@ -75,6 +75,7 @@ class HeroTalentController extends AbstractActionController
          */
         $hero = $this->heroRepository->findOneByAlias($heroAlias);
         $form = new HeroTalentsForm($hero);
+        $form->setAttribute('class', 'hero-talents-form');
 
         $request = $this->getRequest();
         $postData = $request->getPost();
@@ -87,15 +88,20 @@ class HeroTalentController extends AbstractActionController
             }
         }
 
+        $viewData = [
+            'hero' => $hero,
+            'form' => $form
+        ];
+
         if (!$request->isPost()) {
-            return ['form' => $form];
+            return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($postDataSplit[0]);
 
         if (!$form->isValid()) {
-            return ['form' => $form];
+            return $viewData;
         }
 
         foreach ($postDataSplit as $key => $postDataRes) {
@@ -117,7 +123,7 @@ class HeroTalentController extends AbstractActionController
             $this->entityManager->flush();
         }
         return $this->redirect()->toRoute(
-            'heroes/hero-page',
+            'abilities/add-hero-abilities',
             [
                 'action' => 'addHeroAbilities',
                 'hero'   => $heroAlias

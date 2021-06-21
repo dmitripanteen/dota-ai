@@ -219,3 +219,12 @@ $("#neutral-item").change(function () {
         }
     });
 });
+
+$(".talents-form-table select[name*='level0']").val(10);
+$(".talents-form-table select[name*='level1']").val(10);
+$(".talents-form-table select[name*='level2']").val(15);
+$(".talents-form-table select[name*='level3']").val(15);
+$(".talents-form-table select[name*='level4']").val(20);
+$(".talents-form-table select[name*='level5']").val(20);
+$(".talents-form-table select[name*='level6']").val(25);
+$(".talents-form-table select[name*='level7']").val(25);
