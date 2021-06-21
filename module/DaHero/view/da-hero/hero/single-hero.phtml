@@ -15,7 +15,16 @@
     </div>
     <div class="col-4" style="padding-left:0;padding-right:0;overflow:hidden;">
         <div class="hero-profile">
-            <h4 class="p-2 pb-4"><?= $hero->getName(); ?></h4>
+            <h4 class="p-2 pb-4"><?= $hero->getName(); ?>
+                <small class="edit-button">[<a href="<?= $this->url(
+                        'heroes/hero-page/edit-hero',
+                        [
+                            'action' => 'edit',
+                            'hero'   => $hero->getAlias(),
+                        ]
+                    );
+                    ?>">edit</a>]</small>
+            </h4>
             <img class="avatar" src="<?=$hero->getImage();?>">
             <h5 class="p-2">Attributes</h5>
             <div class="row pt-3 pb-3">
@@ -105,7 +114,17 @@
 <?php foreach ($abilities as $ability): ?>
     <?php if($ability->getAbilityNumber()!==0):?>
         <div class="ability border border-primary mb-5">
-            <div class="bg-lightblue ability-header p-2"><?=ucfirst($ability->getAbilityName());?></div>
+            <div class="bg-lightblue ability-header p-2"><?=ucfirst($ability->getAbilityName());?>
+                <small class="edit-button">[<a href="<?= $this->url(
+                        'abilities/edit-hero-abilities',
+                        [
+                            'action' => 'addHeroAbilities',
+                            'hero'   => $hero->getAlias(),
+                            'abilityId' => $ability->getId(),
+                        ]
+                    );
+                    ?>">edit</a>]</small>
+            </div>
             <div class="row pl-2 pr-2">
                 <div class="col-2">
                     <img class="pt-2" src="<?= $ability->getImage(); ?>">
@@ -127,7 +146,17 @@
 <?php foreach ($abilities as $ability): ?>
     <?php if($ability->getAbilityNumber()==0):?>
         <div class="ability border border-primary mb-5">
-            <div class="bg-lightyellow ability-header p-2"><?=ucfirst($ability->getAbilityName());?></div>
+            <div class="bg-lightyellow ability-header p-2"><?=ucfirst($ability->getAbilityName());?>
+                <small class="edit-button">[<a href="<?= $this->url(
+                        'abilities/edit-hero-abilities',
+                        [
+                            'action' => 'addHeroAbilities',
+                            'hero'   => $hero->getAlias(),
+                            'abilityId' => $ability->getId(),
+                        ]
+                    );
+                    ?>">edit</a>]</small>
+            </div>
             <div class="row pl-2 pr-2">
                 <div class="col-2">
                     <img class="pt-2" src="<?= $ability->getImage(); ?>">
@@ -146,7 +175,15 @@
         </div>
     <?php endif;?>
 <?php endforeach; ?>
-<h2>Talents</h2>
+<h2>Talents <small class="edit-button">[<a href="<?= $this->url(
+            'talents/edit-hero-talents',
+            [
+                'action' => 'editHeroTalents',
+                'hero'   => $hero->getAlias(),
+            ]
+        );
+        ?>">edit</a>]</small>
+</h2>
 <hr>
 <table class="talents-table" cellpadding="5">
     <tbody>

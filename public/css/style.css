@@ -305,3 +305,6 @@ div.container a.navbar-brand > img {
 .talents-form-table thead td.description{
     width: 230px;
 }
+.edit-button{
+    font-size: 14px;
+}
