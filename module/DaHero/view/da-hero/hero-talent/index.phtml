@@ -1,21 +1,56 @@
 <?php
 /**
- * @var $talentsList \DaHero\Entity\HeroTalent[]
+ * @var $talents \DaHero\Entity\HeroTalent[]
+ * @var $heroes  \DaHero\Entity\Hero[]
  */; ?>
-<h1>Talents</h1>
-
-<?php foreach ($talents as $heroName => $talentsList): ?>
-    <a href="<?= $this->url(
-        'heroes/hero-page',
-        [
-            'action' => 'singleHero',
-            'hero'   => strtolower(str_replace(' ', '_', $heroName))
-        ]
-    );
-    ?>
-        "><?= $heroName; ?></a> -
-    <?php foreach ($talentsList as $talent): ?>
-        <?= $talent->getDescription(); ?>,
-    <?php endforeach; ?>
-    <BR>
-<?php endforeach; ?>
+<div class="p-3 text-center">
+    <h1 class="mb-3">Talents</h1>
+    <p>List of hero talents:</p>
+</div>
+<table class="table table-bordered table-hover table-sm hero-talents-table">
+    <thead class="text-center">
+        <tr>
+            <th colspan="2" class="first">Hero</th>
+            <th class="second">Level 10</th>
+            <th class="third">Level 15</th>
+            <th class="fourth">Level 20</th>
+            <th class="fifth">Level 25</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($heroes as $hero): ?>
+        <tr class="hero-begin">
+            <td rowspan="2" style="vertical-align: middle;">
+                <a href="<?= $this->url(
+                    'heroes/hero-page',
+                    [
+                        'action' => 'singleHero',
+                        'hero'   => $hero->getAlias(),
+                    ]
+                );?>">
+                    <img src="<?= $hero->getImage(); ?>">
+                </a>
+            </td>
+            <td rowspan="2" style="vertical-align: middle;">
+                <a href="<?= $this->url(
+                    'heroes/hero-page',
+                    [
+                        'action' => 'singleHero',
+                        'hero'   => $hero->getAlias(),
+                    ]
+                );?>"><?= $hero->getName(); ?></a>
+            </td>
+            <td><?=$talents[$hero->getName()][0]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][2]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][4]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][6]->getDescription();?></td>
+        </tr>
+        <tr>
+            <td><?=$talents[$hero->getName()][1]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][3]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][5]->getDescription();?></td>
+            <td><?=$talents[$hero->getName()][7]->getDescription();?></td>
+        </tr>
+    <?php endforeach;?>
+    </tbody>
+</table>

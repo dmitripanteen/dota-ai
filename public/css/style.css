@@ -269,3 +269,27 @@ div.container a.navbar-brand > img {
     background-position: center center;
     background-size: cover;
 }
+.hero-talents-table thead th{
+    color: #fff;
+}
+.hero-talents-table thead th.first{
+    background-color: rgba(65, 180, 241, 0.38);
+}
+.hero-talents-table thead th.second{
+    background-color: rgba(65, 180, 241, 0.48);
+}
+.hero-talents-table thead th.third{
+    background-color: rgba(65, 180, 241, 0.68);
+}
+.hero-talents-table thead th.fourth{
+    background-color: rgba(65, 180, 241, 0.88);
+}
+.hero-talents-table thead th.fifth{
+    background-color: rgba(65, 180, 241, 1);
+}
+.hero-talents-table img{
+    max-width: 150px;
+}
+.hero-talents-table .hero-begin{
+    border-top: 2px solid #000;
+}

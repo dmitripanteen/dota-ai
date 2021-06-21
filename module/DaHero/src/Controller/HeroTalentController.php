@@ -61,7 +61,8 @@ class HeroTalentController extends AbstractActionController
 
         return new ViewModel(
             [
-                'talents' => $talents
+                'talents' => $talents,
+                'heroes' => $heroes,
             ]
         );
     }
