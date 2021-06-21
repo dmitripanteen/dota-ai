@@ -38,7 +38,8 @@ class HeroAbilitiesForm extends Form
                 'name'       => 'heroId',
                 'type'       => 'hidden',
                 'attributes' => [
-                    'value' => $hero->getId()
+                    'value' => $hero->getId(),
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -50,6 +51,9 @@ class HeroAbilitiesForm extends Form
                 'options' => [
                     'label' => 'Ability Name'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -59,6 +63,9 @@ class HeroAbilitiesForm extends Form
                 'type'    => 'text',
                 'options' => [
                     'label' => 'Description'
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -71,7 +78,8 @@ class HeroAbilitiesForm extends Form
                     'label' => 'Ability Number'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -83,6 +91,9 @@ class HeroAbilitiesForm extends Form
                 'options' => [
                     'label' => 'Icon (link)'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -92,6 +103,9 @@ class HeroAbilitiesForm extends Form
                 'type'    => 'text',
                 'options' => [
                     'label' => 'Video (link)'
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -108,6 +122,7 @@ class HeroAbilitiesForm extends Form
                 ],
                 'attributes' => [
                     'value' => 'yes',
+                    'class' => 'form-check-input',
                 ],
             ]
         );
@@ -117,9 +132,9 @@ class HeroAbilitiesForm extends Form
                 'name'       => 'submit',
                 'type'       => 'submit',
                 'attributes' => [
-                    'value' => 'Save',
+                    'value' => 'Save & add new',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-4 pr-4',
                 ],
             ]
         );
@@ -130,7 +145,7 @@ class HeroAbilitiesForm extends Form
                 'attributes' => [
                     'value' => 'Finish',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-4 pr-4',
                 ],
             ]
         );

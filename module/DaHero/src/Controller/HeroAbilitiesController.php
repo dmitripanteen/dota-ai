@@ -60,15 +60,20 @@ class HeroAbilitiesController extends AbstractActionController
         $request = $this->getRequest();
         $postData = $request->getPost();
 
+        $viewData = [
+            'hero' => $hero,
+            'form' => $form
+        ];
+
         if (!$request->isPost()) {
-            return ['form' => $form];
+            return $viewData;
         }
 
         $form->setInputFilter($form->getInputFilter());
         $form->setData($postData);
 
         if (!$form->isValid()) {
-            return ['form' => $form];
+            return $viewData;
         }
 
         if ($postData['isUltimateAbility']) {
@@ -141,7 +146,8 @@ class HeroAbilitiesController extends AbstractActionController
         $request = $this->getRequest();
         $viewData = [
             'ability' => $ability,
-            'form'    => $form
+            'form'    => $form,
+            'hero'    => $hero,
         ];
 
         if (!$request->isPost()) {
