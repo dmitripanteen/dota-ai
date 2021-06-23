@@ -308,3 +308,18 @@ div.container a.navbar-brand > img {
 .edit-button{
     font-size: 14px;
 }
+.items-row{
+    margin-bottom: 20px;
+}
+.items-row img{
+    width: 80px;
+    height: 60px;
+}
+.items-row img.gold-image{
+    width: 16px;
+    height: 16px;
+}
+.items-row span{
+    color: #DAA520;
+    font-weight: bold;
+}

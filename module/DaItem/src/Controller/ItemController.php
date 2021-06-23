@@ -39,10 +39,30 @@ class ItemController extends AbstractActionController
 
     public function itemsListAction()
     {
-        $items = $this->itemRepository->findAll();
+        for($i=1; $i<=12; $i++) {
+            ${'items'.$i} = $this->itemRepository->findBy(
+                [
+                    'category' => $i,
+                ],
+                [
+                    'name' => 'ASC',
+                ]
+            );
+        }
         return new ViewModel(
             [
-                'items' => $items
+                'itemsConsumables' => $items1,
+                'itemsAttributes' => $items2,
+                'itemsEquipment' => $items3,
+                'itemsMisc' => $items4,
+                'itemsSecretShop' => $items5,
+                'itemsRoshan' => $items6,
+                'itemsAccessories' => $items7,
+                'itemsSupport' => $items8,
+                'itemsMagical' => $items9,
+                'itemsArmor' => $items10,
+                'itemsWeapons' => $items11,
+                'itemsArtifacts' => $items12,
             ]
         );
     }

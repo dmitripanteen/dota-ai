@@ -1,19 +1,235 @@
-<?php
-/**
- * @var $items \DaItem\Entity\Item[]
- */; ?>
-<h1>Items</h1>
-
-<?php foreach ($items as $item): ?>
-    <a href="<?= $this->url(
-        'items/item-page',
-        [
-            'action' => 'singleItem',
-            'item'   => $item->getAlias()
-        ]
-    );
-    ?>
-        ">
-        <?= $item->getName(); ?>
-    </a>
-<?php endforeach; ?>>
+<div class="p-3 text-center">
+    <h1>Items</h1>
+</div>
+<h2 class="mt-5">Basic Items</h2>
+<hr>
+<h4>Consumables</h4>
+<div class="row items-row">
+    <?php foreach ($itemsConsumables as $itemConsumables): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemConsumables->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemConsumables->getImage(); ?>">
+                <?= $itemConsumables->getName(); ?>
+            </a>
+            (<span><?=$itemConsumables->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Attributes</h3>
+<div class="row items-row">
+    <?php foreach ($itemsAttributes as $itemAttributes): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemAttributes->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemAttributes->getImage(); ?>">
+                <?= $itemAttributes->getName(); ?>
+            </a>
+            (<span><?=$itemAttributes->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Equipment</h3>
+<div class="row items-row">
+    <?php foreach ($itemsEquipment as $itemEquipment): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemEquipment->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemEquipment->getImage(); ?>">
+                <?= $itemEquipment->getName(); ?>
+            </a>
+            (<span><?=$itemEquipment->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Miscellaneous</h3>
+<div class="row items-row">
+    <?php foreach ($itemsMisc as $itemMisc): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemMisc->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemMisc->getImage(); ?>">
+                <?= $itemMisc->getName(); ?>
+            </a>
+            (<span><?=$itemMisc->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Secret Shop</h3>
+<div class="row items-row">
+    <?php foreach ($itemsSecretShop as $itemSecretShop): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemSecretShop->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemSecretShop->getImage(); ?>">
+                <?= $itemSecretShop->getName(); ?>
+            </a>
+            (<span><?=$itemSecretShop->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Roshan Drop</h3>
+<div class="row items-row">
+    <?php foreach ($itemsRoshan as $itemRoshan): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemRoshan->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemRoshan->getImage(); ?>">
+                <?= $itemRoshan->getName(); ?>
+            </a>
+            (<span><?=$itemRoshan->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Upgrades</h2>
+<hr>
+<h3>Accessories</h3>
+<div class="row items-row">
+    <?php foreach ($itemsAccessories as $itemAccessories): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemAccessories->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemAccessories->getImage(); ?>">
+                <?= $itemAccessories->getName(); ?>
+            </a>
+            (<span><?=$itemAccessories->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Support</h3>
+<div class="row items-row">
+    <?php foreach ($itemsSupport as $itemSupport): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemSupport->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemSupport->getImage(); ?>">
+                <?= $itemSupport->getName(); ?>
+            </a>
+            (<span><?=$itemSupport->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Magical</h3>
+<div class="row items-row">
+    <?php foreach ($itemsMagical as $itemMagical): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemMagical->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemMagical->getImage(); ?>">
+                <?= $itemMagical->getName(); ?>
+            </a>
+            (<span><?=$itemMagical->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Armor</h3>
+<div class="row items-row">
+    <?php foreach ($itemsArmor as $itemArmor): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemArmor->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemArmor->getImage(); ?>">
+                <?= $itemArmor->getName(); ?>
+            </a>
+            (<span><?=$itemArmor->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Weapons</h3>
+<div class="row items-row">
+    <?php foreach ($itemsWeapons as $itemWeapons): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemWeapons->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemWeapons->getImage(); ?>">
+                <?= $itemWeapons->getName(); ?>
+            </a>
+            (<span><?=$itemWeapons->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
+<h3>Artifacts</h3>
+<div class="row items-row">
+    <?php foreach ($itemsArtifacts as $itemArtifacts): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'items/item-page',
+                [
+                    'action' => 'singleItem',
+                    'item'   => $itemArtifacts->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $itemArtifacts->getImage(); ?>">
+                <?= $itemArtifacts->getName(); ?>
+            </a>
+            (<span><?=$itemArtifacts->getPrice();?></span> <img class="gold-image" src="https://static.wikia.nocookie.net/dota2_gamepedia/images/c/cd/Gold_symbol.png">)
+        </div>
+    <?php endforeach; ?>
+</div>
