@@ -71,13 +71,17 @@ class ItemController extends AbstractActionController
     {
         $itemAlias = $this->params()->fromRoute('item');
         /**
-         * @var $item
+         * @var $item Item
          */
         $item = $this->itemRepository->findOneByAlias($itemAlias);
-
+        $itemBuildsInto = [];
+        foreach (json_decode($item->getBuildsInto()) as $parentItem){
+            $itemBuildsInto[]=$this->itemRepository->findById($parentItem)[0];
+        }
         return new ViewModel(
             [
-                'item' => $item
+                'item' => $item,
+                'itemBuildsInto' => $itemBuildsInto,
             ]
         );
     }

@@ -1,7 +1,120 @@
 <?php
 /**
  * @var $item \DaItem\Entity\Item
- */; ?>
-<h1><?= $item->getName(); ?></h1>
-
-<?php var_dump($item); ?>
+ */;
+ use DaItem\Helper\ItemHelper;?>
+<div class="p-3 text-center">
+    <h1><?= $item->getName(); ?></h1>
+</div>
+<div class="row">
+    <div class="col-8">
+        <h2>Info</h2>
+        <hr>
+        <?=str_replace("\n", "<br>", $item->getDescription());?>
+    </div>
+    <div class="col-4" style="padding-left:0;padding-right:0;overflow:hidden;">
+        <div class="hero-profile">
+            <h4 class="p-2 pb-4"><?= $item->getName(); ?>
+                <small class="edit-button">[<a href="<?= $this->url(
+                        'items/item-page/edit-item',
+                        [
+                            'action' => 'edit',
+                            'item'   => $item->getAlias(),
+                        ]
+                    );
+                    ?>">edit</a>]</small>
+            </h4>
+            <img class="avatar" src="<?=$item->getImage();?>">
+            <i class="text-center p-2" style="display: block"><?=$item->getLore();?></i>
+            <div class="row text-center font-weight-bold" style="margin:0">
+                <div class="col-6" style="background-color: #dff124;">
+                    Cost<br><?=$item->getPrice();?>
+                </div>
+                <div class="col-6" style="background-color: #75e276;">
+                    Bought from<br>
+                    <?=ItemHelper::$categoryMap[$item->getCategory()];?>
+                </div>
+            </div>
+            <h5 class="p-2">Bonuses</h5>
+            <?php if($item->getDmgIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getDmgIncrease();?></div>
+                    <div class="col text-left font-weight-bold">attack damage</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getStrIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getStrIncrease();?></div>
+                    <div class="col text-left font-weight-bold">strength</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getAgiIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getAgiIncrease();?></div>
+                    <div class="col text-left font-weight-bold">agility</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getIntIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getIntIncrease();?></div>
+                    <div class="col text-left font-weight-bold">intelligence</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getHpIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getHpIncrease();?></div>
+                    <div class="col text-left font-weight-bold">health</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getMpIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getMpIncrease();?></div>
+                    <div class="col text-left font-weight-bold">mana</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getHpRegenIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getHpRegenIncrease();?></div>
+                    <div class="col text-left font-weight-bold">health regen</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getMpRegenIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getMpRegenIncrease();?></div>
+                    <div class="col text-left font-weight-bold">mana regen</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getArmorIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getArmorIncrease();?></div>
+                    <div class="col text-left font-weight-bold">armor</div>
+                </div>
+            <?php endif;?>
+            <?php if($item->getMoveSpeedIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$item->getMoveSpeedIncrease();?></div>
+                    <div class="col text-left font-weight-bold">move speed</div>
+                </div>
+            <?php endif;?>
+            <?php if(count($itemBuildsInto)):?>
+            <h5 class="p-2">Builds into</h5>
+            <div class="row pt-1 pb-1 text-center"
+                 style="justify-content: space-around; margin: 0;">
+                <?php foreach ($itemBuildsInto as $parentItem):?>
+                    <a class="pt-1 pb-1" href="<?= $this->url(
+                        'items/item-page',
+                        [
+                            'action' => 'singleItem',
+                            'item'   => $parentItem->getAlias()
+                        ]
+                    );
+                    ?>">
+                        <img style="max-width:50px" src="<?= $parentItem->getImage(); ?>">
+                    </a>
+                <?php endforeach;?>
+            </div>
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5"></div>

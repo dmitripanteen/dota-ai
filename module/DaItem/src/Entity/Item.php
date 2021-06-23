@@ -285,7 +285,7 @@ class Item extends AbstractEntity
      */
     public function getDmgIncrease()
     {
-        return $this->strIncrease;
+        return $this->dmgIncrease;
     }
 
     /**
