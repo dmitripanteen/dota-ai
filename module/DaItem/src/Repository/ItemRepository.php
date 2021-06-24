@@ -30,7 +30,7 @@ class ItemRepository extends CustomRepository
                 $qb->expr()->like('i.buildsInto', ':id')
             )
         );
-        $qb->setParameter('id', '%' . $id . '%');
+        $qb->setParameter('id', '%\\\"' . $id . '\\\"%');
         $items = $qb->getQuery()->getArrayResult();
         return $items;
     }
