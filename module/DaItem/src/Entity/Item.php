@@ -6,7 +6,7 @@ use DaBase\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DaItem\Repository\ItemRepository")
  * @ORM\Table(name="item")
  */
 class Item extends AbstractEntity

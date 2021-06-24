@@ -4,6 +4,7 @@ namespace DaItem\Controller;
 
 use DaItem\Entity\Item;
 use DaItem\Form\ItemForm;
+use DaItem\Helper\ItemHelper;
 use DaItem\Repository\ItemRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
@@ -39,8 +40,8 @@ class ItemController extends AbstractActionController
 
     public function itemsListAction()
     {
-        for($i=1; $i<=12; $i++) {
-            ${'items'.$i} = $this->itemRepository->findBy(
+        for ($i = 1; $i <= 12; $i++) {
+            ${'items' . $i} = $this->itemRepository->findBy(
                 [
                     'category' => $i,
                 ],
@@ -52,17 +53,17 @@ class ItemController extends AbstractActionController
         return new ViewModel(
             [
                 'itemsConsumables' => $items1,
-                'itemsAttributes' => $items2,
-                'itemsEquipment' => $items3,
-                'itemsMisc' => $items4,
-                'itemsSecretShop' => $items5,
-                'itemsRoshan' => $items6,
+                'itemsAttributes'  => $items2,
+                'itemsEquipment'   => $items3,
+                'itemsMisc'        => $items4,
+                'itemsSecretShop'  => $items5,
+                'itemsRoshan'      => $items6,
                 'itemsAccessories' => $items7,
-                'itemsSupport' => $items8,
-                'itemsMagical' => $items9,
-                'itemsArmor' => $items10,
-                'itemsWeapons' => $items11,
-                'itemsArtifacts' => $items12,
+                'itemsSupport'     => $items8,
+                'itemsMagical'     => $items9,
+                'itemsArmor'       => $items10,
+                'itemsWeapons'     => $items11,
+                'itemsArtifacts'   => $items12,
             ]
         );
     }
@@ -75,13 +76,19 @@ class ItemController extends AbstractActionController
          */
         $item = $this->itemRepository->findOneByAlias($itemAlias);
         $itemBuildsInto = [];
-        foreach (json_decode($item->getBuildsInto()) as $parentItem){
-            $itemBuildsInto[]=$this->itemRepository->findById($parentItem)[0];
+        foreach (json_decode($item->getBuildsInto()) as $parentItem) {
+            $itemBuildsInto[] = $this->itemRepository->findById($parentItem);
         }
+        $childItems = $this->itemRepository->getChildItems($item->getId());
+        $recipeImgTop = ItemHelper::$recipeMap['top'][count($itemBuildsInto)];
+        $recipeImgBottom = ItemHelper::$recipeMap['bottom'][count($childItems) + (int)$item->getIsRecipeRequired()];
         return new ViewModel(
             [
-                'item' => $item,
-                'itemBuildsInto' => $itemBuildsInto,
+                'item'            => $item,
+                'itemBuildsInto'  => $itemBuildsInto,
+                'childItems'      => $childItems,
+                'recipeImgTop'    => $recipeImgTop,
+                'recipeImgBottom' => $recipeImgBottom
             ]
         );
     }
@@ -205,14 +212,15 @@ class ItemController extends AbstractActionController
         );
     }
 
-    public function itemDataAction(){
+    public function itemDataAction()
+    {
         $items = $this->params()->fromQuery('items', '');
-        $itemImagesArr=[];
-        if($items) {
+        $itemImagesArr = [];
+        if ($items) {
             $itemIdsFromQuery = explode(',', $items);
             foreach ($itemIdsFromQuery as $itemFromQuery) {
                 $itemRes = $this->itemRepository->findById($itemFromQuery)[0];
-                $itemImagesArr[]=$itemRes->getImage();
+                $itemImagesArr[] = $itemRes->getImage();
             }
         }
         return new JsonModel(

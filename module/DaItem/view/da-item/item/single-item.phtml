@@ -96,23 +96,68 @@
                     <div class="col text-left font-weight-bold">move speed</div>
                 </div>
             <?php endif;?>
-            <?php if(count($itemBuildsInto)):?>
-            <h5 class="p-2">Builds into</h5>
-            <div class="row pt-1 pb-1 text-center"
-                 style="justify-content: space-around; margin: 0;">
-                <?php foreach ($itemBuildsInto as $parentItem):?>
-                    <a class="pt-1 pb-1" href="<?= $this->url(
+            <?php if(count($itemBuildsInto) || count($childItems)):?>
+                <h5 class="p-2">Recipe</h5>
+                <div class="p-2"></div>
+                <?php if(count($itemBuildsInto)):?>
+                    <div class="row text-center"
+                         style="justify-content: space-around; margin: 0;">
+                        <?php foreach ($itemBuildsInto as $parentItem):?>
+                            <a href="<?= $this->url(
+                                'items/item-page',
+                                [
+                                    'action' => 'singleItem',
+                                    'item'   => $parentItem->getAlias()
+                                ]
+                            );
+                            ?>">
+                                <img style="width:50px; height: 38px;" src="<?= $parentItem->getImage(); ?>">
+                            </a>
+                        <?php endforeach;?>
+                    </div>
+                    <div class="row text-center"
+                         style="justify-content: space-around; margin: 0;">
+                        <img src="<?=$recipeImgTop;?>">
+                    </div>
+                <?php endif;?>
+                <div class="row text-center"
+                     style="justify-content: space-around; margin: 0;">
+                    <a href="<?= $this->url(
                         'items/item-page',
                         [
                             'action' => 'singleItem',
-                            'item'   => $parentItem->getAlias()
+                            'item'   => $item->getAlias()
                         ]
                     );
                     ?>">
-                        <img style="max-width:50px" src="<?= $parentItem->getImage(); ?>">
+                        <img style="width:50px; height: 38px;" src="<?= $item->getImage(); ?>">
                     </a>
-                <?php endforeach;?>
-            </div>
+                </div>
+                <?php if(count($childItems)):?>
+                    <div class="row text-center"
+                         style="justify-content: space-around; margin: 0;">
+                        <img src="<?=$recipeImgBottom;?>">
+                    </div>
+                    <div class="row text-center"
+                         style="justify-content: space-around; margin: 0;">
+                        <?php foreach ($childItems as $childItem):?>
+                            <a href="<?= $this->url(
+                                'items/item-page',
+                                [
+                                    'action' => 'singleItem',
+                                    'item'   => $childItem['alias']
+                                ]
+                            );
+                            ?>">
+                                <img style="width:50px; height: 38px;" src="<?= $childItem['image']; ?>">
+                            </a>
+                        <?php endforeach;?>
+                        <?php if($item->getIsRecipeRequired()):?>
+                            <img style="width:50px; height: 38px;" src="https://liquipedia.net/commons/images/thumb/6/64/Recipe.png/48px-Recipe.png">
+                        <?php endif;?>
+                    </div>
+                <?php endif;?>
+                <div class="p-2"></div>
             <?php endif;?>
         </div>
     </div>

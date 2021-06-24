@@ -18,4 +18,20 @@ class ItemRepository extends CustomRepository
         $item = $queryBuilder->getQuery()->getOneOrNullResult();
         return $item;
     }
+
+    public function getChildItems($id)
+    {
+        $entityManager = $this->getEntityManager();
+        $qb = $entityManager->createQueryBuilder();
+        $qb->select('i')
+            ->from(Item::class, 'i');
+        $qb->where(
+            $qb->expr()->andX(
+                $qb->expr()->like('i.buildsInto', ':id')
+            )
+        );
+        $qb->setParameter('id', '%' . $id . '%');
+        $items = $qb->getQuery()->getArrayResult();
+        return $items;
+    }
 }
