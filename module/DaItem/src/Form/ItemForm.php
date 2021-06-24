@@ -69,6 +69,9 @@ class ItemForm extends Form
                 'options' => [
                     'label' => 'Name'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -79,6 +82,9 @@ class ItemForm extends Form
                 'options' => [
                     'label' => 'Lore',
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -88,6 +94,9 @@ class ItemForm extends Form
                 'type'    => 'textarea',
                 'options' => [
                     'label' => 'Description',
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -100,7 +109,8 @@ class ItemForm extends Form
                     'label' => 'Price'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -113,7 +123,8 @@ class ItemForm extends Form
                     'label' => 'Dmg'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -123,10 +134,11 @@ class ItemForm extends Form
                 'name'       => 'strIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png">Strength',
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" width="20" height="20"> Strength',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -136,10 +148,11 @@ class ItemForm extends Form
                 'name'       => 'agiIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png">Agility'
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" width="20" height="20"> Agility'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -149,10 +162,11 @@ class ItemForm extends Form
                 'name'       => 'intIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png">Intelligence'
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" width="20" height="20"> Intelligence'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -165,7 +179,8 @@ class ItemForm extends Form
                     'label' => 'HP'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -178,7 +193,8 @@ class ItemForm extends Form
                     'label' => 'Mana'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -191,7 +207,8 @@ class ItemForm extends Form
                     'label' => 'HP regen'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -204,7 +221,8 @@ class ItemForm extends Form
                     'label' => 'Mana regen'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -217,7 +235,8 @@ class ItemForm extends Form
                     'label' => 'Armor'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -230,7 +249,8 @@ class ItemForm extends Form
                     'label' => 'Move speed'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -242,11 +262,15 @@ class ItemForm extends Form
                 'options' => [
                     'label' => 'Image'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
         $typeField = new Select('type');
         $typeField->setLabel('Type');
+        $typeField->setAttribute('class', 'form-control');
         $typeField->setValueOptions(
             [
                 [
@@ -269,6 +293,7 @@ class ItemForm extends Form
 
         $categoryField = new Select('category');
         $categoryField->setLabel('Category');
+        $categoryField->setAttribute('class', 'form-control');
         $categoryField->setValueOptions(
             [
                 [
@@ -334,6 +359,7 @@ class ItemForm extends Form
                 'type'       => Select::class,
                 'attributes' => [
                     'multiple' => 'multiple',
+                    'class' => 'form-control',
                 ],
                 'name'       => 'buildsInto[]',
                 'options'    => [
@@ -366,7 +392,7 @@ class ItemForm extends Form
                 'attributes' => [
                     'value' => 'Save',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-4 pr-4',
                 ],
             ]
         );
