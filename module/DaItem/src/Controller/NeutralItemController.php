@@ -39,10 +39,18 @@ class NeutralItemController extends AbstractActionController
 
     public function neutralItemsListAction()
     {
-        $neutralItems = $this->neutralItemRepository->findAll();
+        $neutralItemsTier1 = $this->neutralItemRepository->findArrayByTier(1);
+        $neutralItemsTier2 = $this->neutralItemRepository->findArrayByTier(2);
+        $neutralItemsTier3 = $this->neutralItemRepository->findArrayByTier(3);
+        $neutralItemsTier4 = $this->neutralItemRepository->findArrayByTier(4);
+        $neutralItemsTier5 = $this->neutralItemRepository->findArrayByTier(5);
         return new ViewModel(
             [
-                'neutralItems' => $neutralItems
+                'tier1' => $neutralItemsTier1,
+                'tier2' => $neutralItemsTier2,
+                'tier3' => $neutralItemsTier3,
+                'tier4' => $neutralItemsTier4,
+                'tier5' => $neutralItemsTier5,
             ]
         );
     }

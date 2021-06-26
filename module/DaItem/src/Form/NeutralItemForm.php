@@ -39,6 +39,9 @@ class NeutralItemForm extends Form
                 'options' => [
                     'label' => 'Name'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -49,6 +52,9 @@ class NeutralItemForm extends Form
                 'options' => [
                     'label' => 'Lore',
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
@@ -58,6 +64,9 @@ class NeutralItemForm extends Form
                 'type'    => 'textarea',
                 'options' => [
                     'label' => 'Description',
+                ],
+                'attributes' => [
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -70,7 +79,8 @@ class NeutralItemForm extends Form
                     'label' => 'Dmg'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -80,10 +90,11 @@ class NeutralItemForm extends Form
                 'name'       => 'strIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png">Strength',
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png" width="20" height="20">Strength',
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -93,10 +104,11 @@ class NeutralItemForm extends Form
                 'name'       => 'agiIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png">Agility'
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png" width="20" height="20">Agility'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -106,10 +118,11 @@ class NeutralItemForm extends Form
                 'name'       => 'intIncrease',
                 'type'       => 'text',
                 'options'    => [
-                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png">Intelligence'
+                    'label' => '<img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png" width="20" height="20">Intelligence'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -122,7 +135,8 @@ class NeutralItemForm extends Form
                     'label' => 'HP'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -135,7 +149,8 @@ class NeutralItemForm extends Form
                     'label' => 'Mana'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -148,7 +163,8 @@ class NeutralItemForm extends Form
                     'label' => 'HP regen'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -161,7 +177,8 @@ class NeutralItemForm extends Form
                     'label' => 'Mana regen'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -174,7 +191,8 @@ class NeutralItemForm extends Form
                     'label' => 'Armor'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -187,7 +205,8 @@ class NeutralItemForm extends Form
                     'label' => 'Move speed'
                 ],
                 'attributes' => [
-                    'value' => 0
+                    'value' => 0,
+                    'class' => 'form-control',
                 ],
             ]
         );
@@ -199,11 +218,15 @@ class NeutralItemForm extends Form
                 'options' => [
                     'label' => 'Image'
                 ],
+                'attributes' => [
+                    'class' => 'form-control',
+                ],
             ]
         );
 
         $tierField = new Select('tier');
-        $tierField->setLabel('Type');
+        $tierField->setLabel('Tier');
+        $tierField->setAttribute('class', 'form-control');
         $tierField->setValueOptions(
             [
                 [
@@ -243,7 +266,7 @@ class NeutralItemForm extends Form
                 'attributes' => [
                     'value' => 'Save',
                     'id'    => 'submitbutton',
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-outline-primary pl-4 pr-4',
                 ],
             ]
         );

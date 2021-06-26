@@ -1,19 +1,117 @@
-<?php
-/**
- * @var $neutralItems \DaItem\Entity\NeutralItem[]
- */; ?>
-<h1>Neutral Items</h1>
-
-<?php foreach ($neutralItems as $neutralItem): ?>
-    <a href="<?= $this->url(
-        'neutral-items/neutral-item-page',
-        [
-            'action'      => 'singleItem',
-            'neutralItem' => $neutralItem->getAlias()
-        ]
-    );
-    ?>
-        ">
-        <?= $neutralItem->getName(); ?>
-    </a>
-<?php endforeach; ?>
+<div class="p-3 text-center">
+    <h1>Neutral Items</h1>
+</div>
+<h2 class="mt-5">Tier 1</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier1 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Tier 2</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier2 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Tier 3</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier3 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Tier 3</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier3 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Tier 4</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier4 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>
+<h2 class="mt-5">Tier 5</h2>
+<hr>
+<div class="row items-row">
+    <?php foreach ($tier5 as $item): ?>
+        <div class='col-4 pt-1 pb-1'>
+            <a href="<?= $this->url(
+                'neutral-items/neutral-item-page',
+                [
+                    'action'      => 'singleItem',
+                    'neutralItem' => $item->getAlias()
+                ]
+            );
+            ?>">
+                <img src="<?= $item->getImage(); ?>">
+                <?= $item->getName(); ?>
+            </a>
+        </div>
+    <?php endforeach; ?>
+</div>

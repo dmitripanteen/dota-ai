@@ -2,6 +2,99 @@
 /**
  * @var $neutralItem \DaItem\Entity\NeutralItem
  */; ?>
-<h1><?= $neutralItem->getName(); ?></h1>
-
-<?php var_dump($neutralItem); ?>
+<div class="p-3 text-center">
+    <h1><?= $neutralItem->getName(); ?></h1>
+</div>
+<div class="row">
+    <div class="col-8">
+        <h2>Info</h2>
+        <hr>
+        <?=str_replace("\n", "<br>", $neutralItem->getDescription());?>
+    </div>
+    <div class="col-4" style="padding-left:0;padding-right:0;overflow:hidden;">
+        <div class="hero-profile">
+            <h4 class="p-2 pb-4"><?= $neutralItem->getName(); ?>
+                <small class="edit-button">[<a href="<?= $this->url(
+                        'neutral-items/neutral-item-page/edit-item',
+                        [
+                            'action' => 'edit',
+                            'neutralItem'   => $neutralItem->getAlias(),
+                        ]
+                    );
+                    ?>">edit</a>]</small>
+            </h4>
+            <img class="avatar" src="<?=$neutralItem->getImage();?>">
+            <i class="text-center p-2" style="display: block"><?=$neutralItem->getLore();?></i>
+            <div class="row text-center font-weight-bold" style="margin:0">
+                <div class="col-6" style="background-color: #dff124;">
+                    Cost<br>N/A
+                </div>
+                <div class="col-6" style="background-color: #75e276;">
+                    Neutral Drop Only
+                </div>
+            </div>
+            <h5 class="p-2">Bonuses</h5>
+            <?php if($neutralItem->getDmgIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getDmgIncrease();?></div>
+                    <div class="col text-left font-weight-bold">attack damage</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getStrIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getStrIncrease();?></div>
+                    <div class="col text-left font-weight-bold">strength</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getAgiIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getAgiIncrease();?></div>
+                    <div class="col text-left font-weight-bold">agility</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getIntIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getIntIncrease();?></div>
+                    <div class="col text-left font-weight-bold">intelligence</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getHpIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getHpIncrease();?></div>
+                    <div class="col text-left font-weight-bold">health</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getMpIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getMpIncrease();?></div>
+                    <div class="col text-left font-weight-bold">mana</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getHpRegenIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getHpRegenIncrease();?></div>
+                    <div class="col text-left font-weight-bold">health regen</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getMpRegenIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getMpRegenIncrease();?></div>
+                    <div class="col text-left font-weight-bold">mana regen</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getArmorIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getArmorIncrease();?></div>
+                    <div class="col text-left font-weight-bold">armor</div>
+                </div>
+            <?php endif;?>
+            <?php if($neutralItem->getMoveSpeedIncrease()):?>
+                <div class="row pt-1 pb-1">
+                    <div class="col text-right">+<?=$neutralItem->getMoveSpeedIncrease();?></div>
+                    <div class="col text-left font-weight-bold">move speed</div>
+                </div>
+            <?php endif;?>
+        </div>
+    </div>
+</div>
+<div class="clearfix mt-5"></div>

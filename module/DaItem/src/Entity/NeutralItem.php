@@ -6,7 +6,7 @@ use DaBase\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DaItem\Repository\NeutralItemRepository")
  * @ORM\Table(name="neutral_item")
  */
 class NeutralItem extends AbstractEntity

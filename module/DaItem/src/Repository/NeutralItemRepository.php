@@ -18,4 +18,16 @@ class NeutralItemRepository extends CustomRepository
         $neutralItem = $queryBuilder->getQuery()->getOneOrNullResult();
         return $neutralItem;
     }
+
+    public function findArrayByTier(int $tier)
+    {
+        $entityManager = $this->getEntityManager();
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder->select('ni')
+            ->from(NeutralItem::class, 'ni')
+            ->where('ni.tier = :tier')
+            ->setParameter('tier', $tier);
+        $neutralItems = $queryBuilder->getQuery()->getResult();
+        return $neutralItems;
+    }
 }
