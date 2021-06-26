@@ -1,9 +1,60 @@
 <?php
 /**
  * @var $matches \DaMatch\Entity\Match[]
- */; ?>
-    <h1>Matches</h1>
+ */
 
-<?php foreach ($matches as $match): ?>
-    <?= $match->getId() . PHP_EOL; ?>
-<?php endforeach; ?>
+use DaMatch\Helper\MatchHelper;
+
+?>
+    <div class="p-3 text-center">
+        <h1 class="mb-3">Latest Matches</h1>
+    </div>
+    <table class="table table-bordered table-hover table-striped table-sm match-list-table">
+        <thead class="text-center">
+        <tr>
+            <th>Match ID</th>
+            <th>Type</th>
+            <th>Duration</th>
+            <th>Winner</th>
+            <th>Match Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($matches as $match): ?>
+            <tr class="text-center">
+                <td class="matchId">
+                    <a href="<?= $this->url(
+                        'matches/match-page',
+                        [
+                            'action'  => 'showMatch',
+                            'matchId' => $match->getId(),
+                        ]
+                    ); ?>">
+                        <?= $match->getOpenDotaMatchId(); ?>
+                    </a>
+                </td>
+                <td>
+                    <?= MatchHelper::$lobbyTypeMap[$match->getGameMode()];?><br>
+                    <small class="lobby-type">
+                        <?php $matchType = $match->getLobbyType() === 0 ? 'Normal Match' : ($match->getLobbyType() === 7 ? 'Ranked Match' : '');
+                    echo $matchType; ?>
+                    </small>
+                </td>
+                <td class="match-duration">
+                    <?=MatchHelper::convertStringToTime($match->getDuration());?>
+                </td>
+                <td class="font-weight-bold">
+                    <?php if($match->getRadiantWin()){
+                        echo "<span class='winner-rad'>Radiant</span>";
+                    }else{
+                        echo "<span class='winner-dire'>Dire</span>";
+                    };?><br>
+                    <span class='winner-rad'><?=$match->getRadiantScore();?></span> : <span class='winner-dire'><?=$match->getDireScore();?></span>
+                </td>
+                <td class="match-date">
+                    <?=date("M d, Y", $match->getStartTime());?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>

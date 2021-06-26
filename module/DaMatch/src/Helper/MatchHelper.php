@@ -362,6 +362,15 @@ class MatchHelper
         686 => 19, //Quicksilver Amulet
     ];
 
+    public static $lobbyTypeMap = [
+        2  => "Captain's Mode",
+        3  => "Random Draft",
+        4  => "Single Draft",
+        5  => 'All Random',
+        22 => 'All Pick',
+        23 => 'Turbo',
+    ];
+
     public static function mapOpendotaHeroesToLocal($id)
     {
         return self::$openDotaHeroMap[$id];
@@ -375,5 +384,16 @@ class MatchHelper
     public static function mapOpendotaNeutralItemsToLocal($id)
     {
         return self::$openDotaNeutralItemMap[$id];
+    }
+
+    public static function convertStringToTime($timeString)
+    {
+        $hours = floor(((int)$timeString)/3600);
+        $minutes = floor(((int)$timeString - $hours*3600)/60);
+        $seconds = (int)$timeString - $hours*3600 - $minutes*60;
+        if ($hours){
+            return $hours.':'.$minutes.':'.$seconds;
+        }
+        return $minutes.':'.$seconds;
     }
 }

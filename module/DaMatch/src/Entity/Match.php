@@ -20,7 +20,7 @@ class Match extends AbstractEntity
     const GAME_MODE_SINGLE_DRAFT = 4;
     const GAME_MODE_ALL_RANDOM = 5;
     const GAME_MODE_ALL_PICK = 22;
-    const GAME_MODE_TURBO = 22;
+    const GAME_MODE_TURBO = 23;
 
     const LOBBY_TYPE_NORMAL = 0;
     const LOBBY_TYPE_RANKED = 7;
