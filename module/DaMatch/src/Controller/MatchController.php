@@ -11,6 +11,9 @@ use DaMatch\Helper\MatchHelper;
 use DaMatch\Repository\MatchPlayerRepository;
 use DaMatch\Repository\MatchRepository;
 use Doctrine\ORM\EntityManager;
+use DoctrineORMModule\Paginator\Adapter\DoctrinePaginator as DoctrineAdapter;
+use Doctrine\ORM\Tools\Pagination\Paginator as ORMPaginator;
+use Laminas\Paginator\Paginator;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\ViewModel;
 
@@ -75,10 +78,15 @@ class MatchController extends AbstractActionController
 
     public function listMatchesAction()
     {
-        $matches = $this->matchRepository->findAll();
+        $page = $this->params()->fromQuery('page', 1);
+        $query = $this->matchRepository->listAll();
+        $adapter = new DoctrineAdapter(new ORMPaginator($query, false));
+        $paginator = new Paginator($adapter);
+        $paginator->setDefaultItemCountPerPage(20);
+        $paginator->setCurrentPageNumber($page);
         return new ViewModel(
             [
-                'matches' => $matches
+                'matches' => $paginator
             ]
         );
     }

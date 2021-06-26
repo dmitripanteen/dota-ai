@@ -34,27 +34,38 @@ use DaMatch\Helper\MatchHelper;
                     </a>
                 </td>
                 <td>
-                    <?= MatchHelper::$lobbyTypeMap[$match->getGameMode()];?><br>
+                    <?= MatchHelper::$lobbyTypeMap[$match->getGameMode()]; ?>
+                    <br>
                     <small class="lobby-type">
                         <?php $matchType = $match->getLobbyType() === 0 ? 'Normal Match' : ($match->getLobbyType() === 7 ? 'Ranked Match' : '');
-                    echo $matchType; ?>
+                        echo $matchType; ?>
                     </small>
                 </td>
                 <td class="match-duration">
-                    <?=MatchHelper::convertStringToTime($match->getDuration());?>
+                    <?= MatchHelper::convertStringToTime($match->getDuration()); ?>
                 </td>
                 <td class="font-weight-bold">
-                    <?php if($match->getRadiantWin()){
+                    <?php if ($match->getRadiantWin()) {
                         echo "<span class='winner-rad'>Radiant</span>";
-                    }else{
+                    } else {
                         echo "<span class='winner-dire'>Dire</span>";
-                    };?><br>
-                    <span class='winner-rad'><?=$match->getRadiantScore();?></span> : <span class='winner-dire'><?=$match->getDireScore();?></span>
+                    }; ?><br>
+                    <span class='winner-rad'><?= $match->getRadiantScore(); ?></span>
+                    :
+                    <span class='winner-dire'><?= $match->getDireScore(); ?></span>
                 </td>
                 <td class="match-date">
-                    <?=date("M d, Y", $match->getStartTime());?>
+                    <?= date("M d, Y", $match->getStartTime()); ?>
                 </td>
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
+<?= $this->paginationControl(
+    $matches,
+    'Sliding',
+    'da-match/partial/paginator',
+    [
+        'route' => 'matches'
+    ]
+); ?>

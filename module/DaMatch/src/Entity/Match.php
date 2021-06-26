@@ -9,7 +9,7 @@ use DaItem\Entity\NeutralItem;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="DaMatch\Repository\MatchRepository")
  * @ORM\Table(name="matches")
  */
 class Match extends AbstractEntity
