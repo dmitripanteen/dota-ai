@@ -335,3 +335,41 @@ div.container a.navbar-brand > img {
 .match-list-table .winner-dire{
     color: #C23C2A;
 }
+.match-data-header .header-title{
+    font-weight: bold;
+}
+.match-data-header .header-descr{
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.rad{
+    color: #A9CF54;
+}
+.dire{
+    color: #C23C2A;
+}
+.winner-header{
+    font-size: 20px;
+}
+.match-time{
+    font-weight: normal;
+    font-size: 16px;
+}
+.match-table .networth-text{
+    color: #c7a232;
+}
+.match-table.table-radiant tbody tr:nth-of-type(odd){
+    background-color: rgba(169,207,84,0.2);
+}
+.match-table.table-dire tbody tr:nth-of-type(odd){
+    background-color: rgba(190,62,42,0.1);
+}
+.match-table .match-neutral-item{
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.match-table .match-neutral-item img{
+    margin-left: -6px;
+}

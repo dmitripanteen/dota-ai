@@ -2,6 +2,9 @@
 
 namespace DaMatch\Helper;
 
+use DaMatch\Entity\Match;
+use DaMatch\Entity\MatchPlayer;
+
 class MatchHelper
 {
     public static $openDotaHeroMap =
@@ -388,12 +391,68 @@ class MatchHelper
 
     public static function convertStringToTime($timeString)
     {
-        $hours = floor(((int)$timeString)/3600);
-        $minutes = floor(((int)$timeString - $hours*3600)/60);
-        $seconds = (int)$timeString - $hours*3600 - $minutes*60;
-        if ($hours){
-            return $hours.':'.$minutes.':'.$seconds;
+        $hours = floor(((int)$timeString) / 3600);
+        $minutes = floor(((int)$timeString - $hours * 3600) / 60);
+        $seconds = (int)$timeString - $hours * 3600 - $minutes * 60;
+        if ($hours) {
+            return $hours . ':' . ($minutes < 10 ? '0' . $minutes : $minutes) . ':' . ($seconds < 10 ? '0' . $seconds : $seconds);
         }
-        return $minutes.':'.$seconds;
+        return $minutes . ':' . ($seconds < 10 ? '0' . $seconds : $seconds);
+    }
+
+    public static function getTimeDiff($datetime)
+    {
+        $elapsedTime = time() - $datetime;
+
+        if ($elapsedTime < 1) {
+            return '0 seconds';
+        }
+
+        $a = array(
+            365 * 24 * 60 * 60 => 'year',
+            30 * 24 * 60 * 60  => 'month',
+            24 * 60 * 60       => 'day',
+            60 * 60            => 'hour',
+            60                 => 'minute',
+            1                  => 'second'
+        );
+
+        foreach ($a as $secs => $str) {
+            $d = $elapsedTime / $secs;
+            if ($d >= 1) {
+                $r = round($d);
+                return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
+            }
+        }
+    }
+
+    public static function getPlayerNetWorth(MatchPlayer $matchPlayer)
+    {
+        $nwRaw = 0;
+        $nwRaw += $matchPlayer->getItem0() ? $matchPlayer->getItem0()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getItem1() ? $matchPlayer->getItem1()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getItem2() ? $matchPlayer->getItem2()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getItem3() ? $matchPlayer->getItem3()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getItem4() ? $matchPlayer->getItem4()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getItem5() ? $matchPlayer->getItem5()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getBackpack0() ? $matchPlayer->getBackpack0()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getBackpack1() ? $matchPlayer->getBackpack1()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getBackpack2() ? $matchPlayer->getBackpack2()->getPrice() : 0;
+        $nwRaw += $matchPlayer->getBackpack3() ? $matchPlayer->getBackpack3()->getPrice() : 0;
+        if ($nwRaw > 1000) {
+            $nwFormatted = ((floor($nwRaw / 100)) / 10) . 'k';
+        } else {
+            $nwFormatted = $nwRaw;
+        }
+        return [
+            'raw'       => $nwRaw,
+            'formatted' => $nwFormatted,
+        ];
+    }
+
+    public static function getPlayerGpm(Match $match, MatchPlayer $matchPlayer)
+    {
+        $netWorth = self::getPlayerNetWorth($matchPlayer);
+        return round($netWorth['raw'] / $match->getDuration() * 60);
     }
 }

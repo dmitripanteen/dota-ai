@@ -1,7 +1,354 @@
 <?php
 /**
  * @var $match \DaMatch\Entity\Match
- */; ?>
-    <h1>Match</h1>
+ */
 
-<?php var_dump($match->getPlayer0()->getHero()->getName()); ?>
+use DaMatch\Helper\MatchHelper; ?>
+
+<div class="p-3 text-center">
+    <h1 class="mb-3">Match overview</h1>
+</div>
+<a href="<?= $this->url(
+    'matches',
+    [
+        'action' => 'listMatches'
+    ]
+); ?>">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+         fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+    </svg>
+    <span>Back to list of matches</span>
+</a>
+<div class="text-center bg-lightblue match-data-header row mt-3">
+    <div class="col-4 text-left">
+                <span class="header-title">
+                    Match <?= $match->getOpenDotaMatchId(); ?>
+                </span>
+        <br>
+        <span class="header-descr">Overview</span>
+    </div>
+    <div class="col-2">
+                <span class="header-title">
+                    <?php $matchType = $match->getLobbyType() === 0 ? 'Normal' : ($match->getLobbyType() === 7 ? 'Ranked' : '');
+                    echo $matchType; ?>
+                </span>
+        <br>
+        <span class="header-descr">Lobby Type</span>
+    </div>
+    <div class="col-2">
+        <span class="header-title"><?= MatchHelper::$lobbyTypeMap[$match->getGameMode()]; ?></span>
+        <br>
+        <span class="header-descr">Game Mode</span>
+    </div>
+    <div class="col-2">
+        <span class="header-title"><?= MatchHelper::convertStringToTime($match->getDuration()); ?></span>
+        <br>
+        <span class="header-descr">Game Mode</span>
+    </div>
+    <div class="col-2">
+        <span class="header-title"><?= MatchHelper::getTimeDiff($match->getStartTime()); ?></span>
+        <br>
+        <span class="header-descr">Match Ended</span>
+    </div>
+</div>
+<div class="winner-header text-uppercase font-weight-bold mt-4 text-center
+        <?php if ($match->getRadiantWin()) {
+    echo "rad";
+} else {
+    echo "dire";
+}; ?>">
+    <?php if ($match->getRadiantWin()) {
+        echo "Radiant Victory";
+    } else {
+        echo "Dire Victory";
+    }; ?>
+</div>
+<div class="winner-header text-uppercase font-weight-bold mb-4 text-center">
+    <span class="rad"><?= $match->getRadiantScore(); ?></span> &nbsp;
+    <span class="match-time"><?= MatchHelper::convertStringToTime($match->getDuration()); ?></span>
+    &nbsp;
+    <span class="dire"><?= $match->getDireScore(); ?></span>
+</div>
+<div class="w-100 text-uppercase font-weight-bold rad">
+    The Radiant
+    <?php if ($match->getRadiantWin()): ?><i
+            class='fa fa-trophy'></i><?php endif; ?>
+</div>
+<table class="w-100 table match-table table-radiant">
+    <thead class="font-weight-bold">
+    <tr>
+        <td class="text-center">Hero</td>
+        <td style="width:210px;">Player</td>
+        <td data-toggle="tooltip" data-placement="top" title="Kills"
+            class="text-center">K
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Deaths"
+            class="text-center">D
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Assists"
+            class="text-center">A
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Net Worth"
+            class="text-center networth-text">NET
+        </td>
+        <td class="text-center">
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Last Hits">LH</span>/<span data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Denies">DN</span>
+        </td>
+        <td data-toggle="tooltip" data-placement="top"
+            title="Gold Per Minute" class="text-center">GPM
+        </td>
+        <td colspan="2">Items</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php for ($i = 0; $i <= 4; $i++): ?>
+        <tr>
+            <td class="text-center">
+                <a href="<?= $this->url(
+                    'heroes/hero-page',
+                    [
+                        'action' => 'singleHero',
+                        'hero'   => $match->{"getPlayer" . $i}()->getHero()->getAlias(),
+                    ]
+                ); ?>">
+                    <img src="<?= $match->{"getPlayer" . $i}()->getHero()->getImage(); ?>"
+                         width="50">
+                </a>
+            </td>
+            <td>
+                <?php if ($match->{"getPlayer" . $i}()->getAccountId()): ?>
+                    <a href="https://www.dotabuff.com/players/<?= $match->{"getPlayer" . $i}()->getAccountId(); ?>">
+                        <?= $match->{"getPlayer" . $i}()->getPersonaName(); ?>
+                    </a>
+                <?php else: ?>
+                    ANONYMOUS
+                <?php endif; ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getKills(); ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getDeaths(); ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getAssists(); ?>
+            </td>
+            <td class="text-center networth-text">
+                <?= MatchHelper::getPlayerNetWorth($match->{"getPlayer" . $i}())['formatted']; ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getLastHits(); ?>
+                /<?= $match->{"getPlayer" . $i}()->getDenies(); ?>
+            </td>
+            <td class="text-center">
+                <?= MatchHelper::getPlayerGpm($match, $match->{"getPlayer" . $i}()); ?>
+            </td>
+            <td>
+                <div class="row ml-0 mr-0" style="width:300px;">
+                    <?php for ($j = 0; $j <= 5; $j++): ?>
+                        <?php if ($match->{"getPlayer" . $i}()->{"getItem" . $j}()): ?>
+                            <div class="col-2 pl-0 pr-0">
+                                <a href="<?= $this->url(
+                                    'items/item-page',
+                                    [
+                                        'action' => 'singleItem',
+                                        'item'   => $match->{"getPlayer" . $i}()->{"getItem" . $j}()->getAlias()
+                                    ]
+                                );
+                                ?>">
+                                    <img src="<?= $match->{"getPlayer" . $i}()->{"getItem" . $j}()->getImage(); ?>"
+                                         width="50" height="38">
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+                <div class="row w-100 ml-0 mr-0">
+                    <div class="row w-75 ml-0 mr-0">
+                        <?php for ($j = 0; $j <= 3; $j++): ?>
+                            <?php if ($match->{"getPlayer" . $i}()->{"getBackpack" . $j}()): ?>
+                                <div class="col-2 pl-0 pr-0">
+                                    <a href="<?= $this->url(
+                                        'items/item-page',
+                                        [
+                                            'action' => 'singleItem',
+                                            'item'   => $match->{"getPlayer" . $i}()->{"getBackpack" . $j}()->getAlias()
+                                        ]
+                                    );
+                                    ?>">
+                                        <img src="<?= $match->{"getPlayer" . $i}()->{"getBackpack" . $j}()->getImage(); ?>"
+                                             width="50" height="38">
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="row w-25 justify-content-end ml-0 mr-0">
+                        <?php if ($match->{"getPlayer" . $i}()->getNeutralItem()): ?>
+                            <div class=" match-neutral-item">
+                                <a href="<?= $this->url(
+                                    'neutral-items/neutral-item-page',
+                                    [
+                                        'action'      => 'singleItem',
+                                        'neutralItem' => $match->{"getPlayer" . $i}()->getNeutralItem()->getAlias()
+                                    ]
+                                );
+                                ?>">
+                                    <img src="<?= $match->{"getPlayer" . $i}()->getNeutralItem()->getImage(); ?>"
+                                         width="50" height="38">
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <?php endfor; ?>
+    </tbody>
+</table>
+
+<div class="w-100 mt-5 text-uppercase font-weight-bold dire">
+    The Dire
+    <?php if (!$match->getRadiantWin()): ?><i
+            class='fa fa-trophy'></i><?php endif; ?>
+</div>
+<table class="w-100 table match-table table-dire">
+    <thead class="font-weight-bold">
+    <tr>
+        <td class="text-center">Hero</td>
+        <td style="width:210px;">Player</td>
+        <td data-toggle="tooltip" data-placement="top" title="Kills"
+            class="text-center">K
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Deaths"
+            class="text-center">D
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Assists"
+            class="text-center">A
+        </td>
+        <td data-toggle="tooltip" data-placement="top" title="Net Worth"
+            class="text-center networth-text">NET
+        </td>
+        <td class="text-center">
+                <span data-toggle="tooltip" data-placement="top"
+                      title="Last Hits">LH</span>/<span data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        title="Denies">DN</span>
+        </td>
+        <td data-toggle="tooltip" data-placement="top"
+            title="Gold Per Minute" class="text-center">GPM
+        </td>
+        <td colspan="2">Items</td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php for ($i = 5; $i <= 9; $i++): ?>
+        <tr>
+            <td class="text-center">
+                <a href="<?= $this->url(
+                    'heroes/hero-page',
+                    [
+                        'action' => 'singleHero',
+                        'hero'   => $match->{"getPlayer" . $i}()->getHero()->getAlias(),
+                    ]
+                ); ?>">
+                    <img src="<?= $match->{"getPlayer" . $i}()->getHero()->getImage(); ?>"
+                         width="50">
+                </a>
+            </td>
+            <td>
+                <?php if ($match->{"getPlayer" . $i}()->getAccountId()): ?>
+                    <a href="https://www.dotabuff.com/players/<?= $match->{"getPlayer" . $i}()->getAccountId(); ?>">
+                        <?= $match->{"getPlayer" . $i}()->getPersonaName(); ?>
+                    </a>
+                <?php else: ?>
+                    ANONYMOUS
+                <?php endif; ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getKills(); ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getDeaths(); ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getAssists(); ?>
+            </td>
+            <td class="text-center networth-text">
+                <?= MatchHelper::getPlayerNetWorth($match->{"getPlayer" . $i}())['formatted']; ?>
+            </td>
+            <td class="text-center">
+                <?= $match->{"getPlayer" . $i}()->getLastHits(); ?>
+                /<?= $match->{"getPlayer" . $i}()->getDenies(); ?>
+            </td>
+            <td class="text-center">
+                <?= MatchHelper::getPlayerGpm($match, $match->{"getPlayer" . $i}()); ?>
+            </td>
+            <td>
+                <div class="row ml-0 mr-0" style="width:300px;">
+                    <?php for ($j = 0; $j <= 5; $j++): ?>
+                        <?php if ($match->{"getPlayer" . $i}()->{"getItem" . $j}()): ?>
+                            <div class="col-2 pl-0 pr-0">
+                                <a href="<?= $this->url(
+                                    'items/item-page',
+                                    [
+                                        'action' => 'singleItem',
+                                        'item'   => $match->{"getPlayer" . $i}()->{"getItem" . $j}()->getAlias()
+                                    ]
+                                );
+                                ?>">
+                                    <img src="<?= $match->{"getPlayer" . $i}()->{"getItem" . $j}()->getImage(); ?>"
+                                         width="50" height="38">
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                </div>
+                <div class="row w-100 ml-0 mr-0">
+                    <div class="row w-75 ml-0 mr-0">
+                        <?php for ($j = 0; $j <= 3; $j++): ?>
+                            <?php if ($match->{"getPlayer" . $i}()->{"getBackpack" . $j}()): ?>
+                                <div class="col-2 pl-0 pr-0">
+                                    <a href="<?= $this->url(
+                                        'items/item-page',
+                                        [
+                                            'action' => 'singleItem',
+                                            'item'   => $match->{"getPlayer" . $i}()->{"getBackpack" . $j}()->getAlias()
+                                        ]
+                                    );
+                                    ?>">
+                                        <img src="<?= $match->{"getPlayer" . $i}()->{"getBackpack" . $j}()->getImage(); ?>"
+                                             width="50" height="38">
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        <?php endfor; ?>
+                    </div>
+                    <div class="row w-25 justify-content-end ml-0 mr-0">
+                        <?php if ($match->{"getPlayer" . $i}()->getNeutralItem()): ?>
+                            <div class=" match-neutral-item">
+                                <a href="<?= $this->url(
+                                    'neutral-items/neutral-item-page',
+                                    [
+                                        'action'      => 'singleItem',
+                                        'neutralItem' => $match->{"getPlayer" . $i}()->getNeutralItem()->getAlias()
+                                    ]
+                                );
+                                ?>">
+                                    <img src="<?= $match->{"getPlayer" . $i}()->getNeutralItem()->getImage(); ?>"
+                                         width="50" height="38">
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <?php endfor; ?>
+    </tbody>
+</table>

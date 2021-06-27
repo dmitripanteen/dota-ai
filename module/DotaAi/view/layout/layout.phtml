@@ -14,6 +14,7 @@
     <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
         ->prependStylesheet($this->basePath('css/style.css'))
         ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet('https://pro.fontawesome.com/releases/v5.10.0/css/all.css')
     ?>
 
     <!-- Scripts -->
@@ -21,6 +22,7 @@
         ->prependFile($this->basePath('js/script.js'))
         ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
+        ->prependFile('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js')
     ?>
 </head>
 <body>
