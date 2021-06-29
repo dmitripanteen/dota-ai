@@ -131,5 +131,27 @@ return [
                 ],
             ]
         ],
+        'item-stats' => [
+            'type'          => Segment::class,
+            'options'       => [
+                'route'    => '/stats/items[?sort]',
+                'defaults' => [
+                    'controller' => Controller\ItemController::class,
+                    'action'     => 'itemStats',
+                ],
+            ],
+            'may_terminate' => true,
+        ],
+        'neutral-item-stats' => [
+            'type'          => Segment::class,
+            'options'       => [
+                'route'    => '/stats/neutral-items[?sort]',
+                'defaults' => [
+                    'controller' => Controller\NeutralItemController::class,
+                    'action'     => 'neutralItemStats',
+                ],
+            ],
+            'may_terminate' => true,
+        ],
     ],
 ];

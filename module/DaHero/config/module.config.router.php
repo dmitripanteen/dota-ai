@@ -165,5 +165,16 @@ return [
                 ],
             ],
         ],
+        'hero-stats' => [
+            'type'          => Segment::class,
+            'options'       => [
+                'route'    => '/stats/heroes[?sort]',
+                'defaults' => [
+                    'controller' => Controller\HeroController::class,
+                    'action'     => 'heroStats',
+                ],
+            ],
+            'may_terminate' => true,
+        ],
     ],
 ];

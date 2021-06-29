@@ -1,0 +1,65 @@
+<div class="p-3 text-center">
+    <h1>Items Stats</h1>
+</div>
+<form class="w-25 mb-5">
+    <select class="form-control item-order-selector" aria-label="">
+        <option value="0" selected disabled>- Sort by -</option>
+        <option value="name" <?php if ($_GET['sort'] == 'name'): ?>selected<?php endif;?>>Name</option>
+        <option value="totalUse" <?php if ($_GET['sort'] == 'totalUse'): ?>selected<?php endif;?>>Times Used</option>
+        <option value="useRate" <?php if ($_GET['sort'] == 'useRate'): ?>selected<?php endif;?>>Use Rate</option>
+        <option value="winRate" <?php if ($_GET['sort'] == 'winRate'): ?>selected<?php endif;?>>Win Rate</option>
+    </select>
+</form>
+<table class="table table-striped">
+    <thead class="font-weight-bold">
+    <tr>
+        <td>Item
+            <?php if ($_GET['sort'] == 'name'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Times Used
+            <?php if ($_GET['sort'] == 'totalUse'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Use Rate
+            <?php if ($_GET['sort'] == 'useRate'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Win Rate
+            <?php if ($_GET['sort'] == 'winRate'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($items as $item): ?>
+        <tr>
+            <td>
+                <a href="<?= $this->url(
+                    'items/item-page',
+                    [
+                        'action' => 'singleItem',
+                        'item'   => $item['item']->getAlias()
+                    ]
+                );
+                ?>">
+                    <img src="<?= $item['item']->getImage(); ?>" width="50">
+                    <?= $item['item']->getName(); ?>
+                </a>
+            </td>
+            <td>
+                <?= $item['totalUse']; ?>
+                <div style="height:3px;background-color:red;width:<?= round($item['totalUse'] / $maxTotalUse * 100); ?>%"></div>
+            </td>
+            <td>
+                <?= round($item['useRate'] * 100, 2); ?>%
+                <div style="height:3px;background-color:red;width:<?= round($item['useRate'] / $maxUseRate * 100); ?>%"></div>
+            </td>
+            <td>
+                <?= round($item['winRate'] * 100, 2); ?>%
+                <div style="height:3px;background-color:#A9CF54;width:<?= round($item['winRate'] / $maxWinRate * 100); ?>%"></div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

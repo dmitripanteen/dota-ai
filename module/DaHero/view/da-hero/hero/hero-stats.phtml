@@ -1,0 +1,65 @@
+<div class="p-3 text-center">
+    <h1>Heroes Stats</h1>
+</div>
+<form class="w-25 mb-5">
+    <select class="form-control hero-order-selector" aria-label="">
+        <option value="0" selected disabled>- Sort by -</option>
+        <option value="name" <?php if ($_GET['sort'] == 'name'): ?>selected<?php endif;?>>Name</option>
+        <option value="totalPicks" <?php if ($_GET['sort'] == 'totalPicks'): ?>selected<?php endif;?>>Picks</option>
+        <option value="pickRate" <?php if ($_GET['sort'] == 'pickRate'): ?>selected<?php endif;?>>Pick Rate</option>
+        <option value="winRate" <?php if ($_GET['sort'] == 'winRate'): ?>selected<?php endif;?>>Win Rate</option>
+    </select>
+</form>
+<table class="table table-striped">
+    <thead class="font-weight-bold">
+    <tr>
+        <td>Hero
+            <?php if ($_GET['sort'] == 'name'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Picks
+            <?php if ($_GET['sort'] == 'totalPicks'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Pick Rate
+            <?php if ($_GET['sort'] == 'pickRate'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+        <td>Win Rate
+            <?php if ($_GET['sort'] == 'winRate'): ?><i
+                    class="fas fa-arrow-down"></i><?php endif; ?>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($heroes as $hero): ?>
+        <tr>
+            <td>
+                <a href="<?= $this->url(
+                    'heroes/hero-page',
+                    [
+                        'action' => 'singleHero',
+                        'hero'   => $hero['hero']->getAlias()
+                    ]
+                );
+                ?>">
+                    <img src="<?= $hero['hero']->getImage(); ?>" width="50">
+                    <?= $hero['hero']->getName(); ?>
+                </a>
+            </td>
+            <td>
+                <?= $hero['totalPicks']; ?>
+                <div style="height:3px;background-color:red;width:<?= round($hero['totalPicks'] / $maxTotalPicks * 100); ?>%"></div>
+            </td>
+            <td>
+                <?= round($hero['pickRate'] * 100, 2); ?>%
+                <div style="height:3px;background-color:red;width:<?= round($hero['pickRate'] / $maxPickRate * 100); ?>%"></div>
+            </td>
+            <td>
+                <?= round($hero['winRate'] * 100, 2); ?>%
+                <div style="height:3px;background-color:#A9CF54;width:<?= round($hero['winRate'] / $maxWinRate * 100); ?>%"></div>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

@@ -7,6 +7,10 @@ use DaItem\Entity\Item;
 
 class ItemRepository extends CustomRepository
 {
+    public $sortWhitelist = [
+        'name', 'winRate', 'useRate', 'totalUse'
+    ];
+
     public function findOneByAlias(string $alias)
     {
         $entityManager = $this->getEntityManager();

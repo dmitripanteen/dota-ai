@@ -12,6 +12,7 @@ use DaHero\Repository\HeroTalentRepository;
 use DaHero\Service\HeroBuilderService;
 use DaItem\Repository\ItemRepository;
 use DaItem\Repository\NeutralItemRepository;
+use DaMatch\Repository\MatchPlayerRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
@@ -56,6 +57,11 @@ class HeroController extends AbstractActionController
     protected $heroBuilderService;
 
     /**
+     * @var MatchPlayerRepository
+     */
+    private $matchPlayerRepository;
+
+    /**
      * HeroController constructor.
      *
      * @param $heroRepository
@@ -65,6 +71,7 @@ class HeroController extends AbstractActionController
      * @param $neutralItemRepository
      * @param $entityManager
      * @param $heroBuilderService
+     * @param $matchPlayerRepository
      */
     public function __construct(
         $heroRepository,
@@ -73,7 +80,8 @@ class HeroController extends AbstractActionController
         $itemRepository,
         $neutralItemRepository,
         $entityManager,
-        $heroBuilderService
+        $heroBuilderService,
+        $matchPlayerRepository
     ) {
         $this->heroRepository = $heroRepository;
         $this->heroTalentRepository = $heroTalentRepository;
@@ -82,6 +90,7 @@ class HeroController extends AbstractActionController
         $this->neutralItemRepository = $neutralItemRepository;
         $this->entityManager = $entityManager;
         $this->heroBuilderService = $heroBuilderService;
+        $this->matchPlayerRepository = $matchPlayerRepository;
     }
 
     public function indexAction()
@@ -267,6 +276,69 @@ class HeroController extends AbstractActionController
         return new JsonModel(
             [
                 'hero' => $heroData,
+            ]
+        );
+    }
+
+    public function heroStatsAction()
+    {
+        $sort = $this->params()->fromQuery('sort', 'name');
+        if (!in_array($sort, $this->heroRepository->sortWhitelist)) {
+            $sort = 'name';
+        }
+        $heroesSorted = [];
+        $maxTotalPicks = 0;
+        $maxPickRate = 0;
+        $maxWinRate = 0;
+        $heroes = $this->heroRepository->getAll();
+        foreach ($heroes as $hero) {
+            $heroPicksTotal = $this->matchPlayerRepository->getHeroPicks($hero);
+            $heroPicksWon = $this->matchPlayerRepository->getHeroPicks($hero, true);
+            $totalGames = $this->matchPlayerRepository->getNumberOfMatches();
+            $pickRate = $totalGames ? $heroPicksTotal / $totalGames : 0;
+            $winRate = $heroPicksTotal ? $heroPicksWon / $heroPicksTotal : 0;
+            $heroesSorted[] = [
+                'hero'     => $hero,
+                'heroName' => $hero->getName(),
+                'totalPicks' => $heroPicksTotal,
+                'pickRate'  => $pickRate,
+                'winRate'  => $winRate,
+            ];
+            $maxTotalPicks = $heroPicksTotal > $maxTotalPicks ? $heroPicksTotal : $maxTotalPicks;
+            $maxWinRate = $winRate > $maxWinRate ? $winRate : $maxWinRate;
+            $maxPickRate = $pickRate > $maxPickRate ? $pickRate : $maxPickRate;
+        }
+        if ($sort == 'name') {
+            usort(
+                $heroesSorted, function ($a, $b) {
+                return $a['heroName'] <=> $b['heroName'];
+            }
+            );
+        } elseif ($sort == 'winRate') {
+            usort(
+                $heroesSorted, function ($a, $b) {
+                return $b['winRate'] <=> $a['winRate'];
+            }
+            );
+        } elseif ($sort == 'pickRate') {
+            usort(
+                $heroesSorted, function ($a, $b) {
+                return $b['pickRate'] <=> $a['pickRate'];
+            }
+            );
+        } elseif ($sort == 'totalPicks') {
+            usort(
+                $heroesSorted, function ($a, $b) {
+                return $b['totalPicks'] <=> $a['totalPicks'];
+            }
+            );
+        }
+        return new ViewModel(
+            [
+                'heroes'       => $heroesSorted,
+                'maxTotalPicks' => $maxTotalPicks,
+                'maxWinRate'  => $maxWinRate,
+                'maxPickRate'  => $maxPickRate
             ]
         );
     }

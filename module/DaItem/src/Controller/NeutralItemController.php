@@ -5,6 +5,7 @@ namespace DaItem\Controller;
 use DaItem\Entity\NeutralItem;
 use DaItem\Form\NeutralItemForm;
 use DaItem\Repository\NeutralItemRepository;
+use DaMatch\Repository\MatchPlayerRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Mvc\Controller\AbstractActionController;
 use Laminas\View\Model\JsonModel;
@@ -19,6 +20,11 @@ class NeutralItemController extends AbstractActionController
     private $neutralItemRepository;
 
     /**
+     * @var MatchPlayerRepository
+     */
+    private $matchPlayerRepository;
+
+    /**
      * @var EntityManager
      */
     private $entityManager;
@@ -28,13 +34,16 @@ class NeutralItemController extends AbstractActionController
      *
      * @param $entityManager
      * @param $neutralItemRepository
+     * @param $matchPlayerRepository
      */
     public function __construct(
         $entityManager,
-        $neutralItemRepository
+        $neutralItemRepository,
+        $matchPlayerRepository
     ) {
         $this->entityManager = $entityManager;
         $this->neutralItemRepository = $neutralItemRepository;
+        $this->matchPlayerRepository = $matchPlayerRepository;
     }
 
     public function neutralItemsListAction()
@@ -181,6 +190,69 @@ class NeutralItemController extends AbstractActionController
         return new JsonModel(
             [
                 'item' => $neutralItem->getImage(),
+            ]
+        );
+    }
+
+    public function neutralItemStatsAction()
+    {
+        $sort = $this->params()->fromQuery('sort', 'name');
+        if (!in_array($sort, $this->neutralItemRepository->sortWhitelist)) {
+            $sort = 'name';
+        }
+        $itemsSorted = [];
+        $maxTotalUse = 0;
+        $maxUseRate = 0;
+        $maxWinRate = 0;
+        $items = $this->neutralItemRepository->getAll();
+        foreach ($items as $item) {
+            $itemUsagesTotal = $this->matchPlayerRepository->getNeutralItemUsages($item);
+            $itemUsagesWon = $this->matchPlayerRepository->getNeutralItemUsages($item, true);
+            $totalGames = $this->matchPlayerRepository->getNumberOfMatches();
+            $useRate = $totalGames ? $itemUsagesTotal / $totalGames : 0;
+            $winRate = $itemUsagesTotal ? $itemUsagesWon / $itemUsagesTotal : 0;
+            $itemsSorted[] = [
+                'item'     => $item,
+                'itemName' => $item->getName(),
+                'totalUse' => $itemUsagesTotal,
+                'useRate'  => $useRate,
+                'winRate'  => $winRate,
+            ];
+            $maxTotalUse = $itemUsagesTotal > $maxTotalUse ? $itemUsagesTotal : $maxTotalUse;
+            $maxWinRate = $winRate > $maxWinRate ? $winRate : $maxWinRate;
+            $maxUseRate = $useRate > $maxUseRate ? $useRate : $maxUseRate;
+        }
+        if ($sort == 'name') {
+            usort(
+                $itemsSorted, function ($a, $b) {
+                return $a['itemName'] <=> $b['itemName'];
+            }
+            );
+        } elseif ($sort == 'winRate') {
+            usort(
+                $itemsSorted, function ($a, $b) {
+                return $b['winRate'] <=> $a['winRate'];
+            }
+            );
+        } elseif ($sort == 'useRate') {
+            usort(
+                $itemsSorted, function ($a, $b) {
+                return $b['useRate'] <=> $a['useRate'];
+            }
+            );
+        } elseif ($sort == 'totalUse') {
+            usort(
+                $itemsSorted, function ($a, $b) {
+                return $b['totalUse'] <=> $a['totalUse'];
+            }
+            );
+        }
+        return new ViewModel(
+            [
+                'items'       => $itemsSorted,
+                'maxTotalUse' => $maxTotalUse,
+                'maxWinRate'  => $maxWinRate,
+                'maxUseRate'  => $maxUseRate
             ]
         );
     }

@@ -1,6 +1,25 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
+
+    $.urlParam = function (name) {
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(location.href);
+        if (results == null) {
+            return null;
+        }
+        return decodeURI(results[1]) || 0;
+    };
+
+    $(".item-order-selector").change(function () {
+        location.href = '/stats/items?sort=' + $(this).val();
+    });
+    $(".neutral-item-order-selector").change(function () {
+        location.href = '/stats/neutral-items?sort=' + $(this).val();
+    });
+    $(".hero-order-selector").change(function () {
+        location.href = '/stats/heroes?sort=' + $(this).val();
+    });
 });
+
 $("#heroes").change(function () {
     $.ajax({
         type: 'GET',

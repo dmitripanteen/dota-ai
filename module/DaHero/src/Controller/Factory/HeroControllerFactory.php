@@ -9,6 +9,7 @@ use DaHero\Entity\HeroTalent;
 use DaHero\Service\HeroBuilderService;
 use DaItem\Entity\Item;
 use DaItem\Entity\NeutralItem;
+use DaMatch\Entity\MatchPlayer;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
@@ -27,7 +28,8 @@ class HeroControllerFactory implements FactoryInterface
             $entityManager->getRepository(Item::class),
             $entityManager->getRepository(NeutralItem::class),
             $entityManager,
-            $container->get(HeroBuilderService::class)
+            $container->get(HeroBuilderService::class),
+            $entityManager->getRepository(MatchPlayer::class)
         );
     }
 }

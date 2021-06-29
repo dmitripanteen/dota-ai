@@ -7,6 +7,10 @@ use DaHero\Entity\Hero;
 
 class HeroRepository extends CustomRepository
 {
+    public $sortWhitelist = [
+        'name', 'winRate', 'pickRate', 'totalPicks'
+    ];
+
     public function findOneByAlias(string $alias)
     {
         $entityManager = $this->getEntityManager();

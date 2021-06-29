@@ -4,6 +4,7 @@ namespace DaItem\Controller\Factory;
 
 use DaItem\Controller\NeutralItemController;
 use DaItem\Entity\NeutralItem;
+use DaMatch\Entity\MatchPlayer;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 
@@ -17,7 +18,8 @@ class NeutralItemControllerFactory implements FactoryInterface
         $entityManager = $container->get('doctrine.entitymanager.orm_default');
         return new NeutralItemController(
             $entityManager,
-            $entityManager->getRepository(NeutralItem::class)
+            $entityManager->getRepository(NeutralItem::class),
+            $entityManager->getRepository(MatchPlayer::class)
         );
     }
 }
