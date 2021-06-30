@@ -270,7 +270,7 @@ class HeroController extends AbstractActionController
         $talents = $this->params()->fromQuery('talents', '');
         $items = $this->params()->fromQuery('items', '');
         $neutralItem = $this->params()->fromQuery('neutral-item', '');
-        $hero = $this->heroRepository->findById($heroId)[0];
+        $hero = $this->heroRepository->findById($heroId);
 
         $heroData = $this->heroBuilderService->computeHeroStats($hero, $level, $talents, $items, $neutralItem);
         return new JsonModel(

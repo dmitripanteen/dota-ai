@@ -31,7 +31,7 @@ class HeroRepository extends CustomRepository
             ->from(Hero::class, 'h')
             ->where('h.mainAttr = :mainAttr')
             ->setParameter('mainAttr', $mainAttr);
-        $heroes = $qb->getQuery()->getArrayResult();
+        $heroes = $qb->getQuery()->getResult();
         return $heroes;
     }
 }
