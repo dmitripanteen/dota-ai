@@ -121,7 +121,7 @@ class HeroBuilderService
         if($itemsFromQuery) {
             $itemIdsFromQuery = explode(',', $itemsFromQuery);
             foreach ($itemIdsFromQuery as $itemFromQuery) {
-                $itemRes = $this->itemRepository->findById($itemFromQuery)[0];
+                $itemRes = $this->itemRepository->findById($itemFromQuery);
                 $statsAmplifiers['dmg'] += $itemRes->getDmgIncrease();
                 $statsAmplifiers['armor'] += $itemRes->getArmorIncrease();
                 $statsAmplifiers['ms'] += $itemRes->getMoveSpeedIncrease();
@@ -135,7 +135,7 @@ class HeroBuilderService
             }
         }
         if($neutralItemFromQuery) {
-            $neutralItem = $this->neutralItemRepository->findById($neutralItemFromQuery)[0];
+            $neutralItem = $this->neutralItemRepository->findById($neutralItemFromQuery);
             $neutralAmplifiers = [
                 'dmg'     => [
                     'type' => (is_numeric($neutralItem->getDmgIncrease()) || is_null($neutralItem->getDmgIncrease())) ? 'sum' : 'mult',

@@ -186,7 +186,7 @@ class NeutralItemController extends AbstractActionController
 
     public function neutralItemDataAction(){
         $item = $this->params()->fromQuery('neutral-item', '');
-        $neutralItem = $this->neutralItemRepository->findById($item)[0];
+        $neutralItem = $this->neutralItemRepository->findById($item);
         return new JsonModel(
             [
                 'item' => $neutralItem->getImage(),

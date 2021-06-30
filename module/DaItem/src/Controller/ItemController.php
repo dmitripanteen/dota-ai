@@ -128,7 +128,7 @@ class ItemController extends AbstractActionController
         $itemAlias = strtolower(str_replace('\'', '', str_replace(' ', '_', $formData['name'])));
         $buildsInto = [];
         foreach ($formData['buildsInto'] as $parentItem) {
-            $buildsInto[] = $parentItem[0];
+            $buildsInto[] = $parentItem;
         }
         $item->setName($formData['name'])
             ->setAlias($itemAlias)
@@ -228,7 +228,7 @@ class ItemController extends AbstractActionController
         if ($items) {
             $itemIdsFromQuery = explode(',', $items);
             foreach ($itemIdsFromQuery as $itemFromQuery) {
-                $itemRes = $this->itemRepository->findById($itemFromQuery)[0];
+                $itemRes = $this->itemRepository->findById($itemFromQuery);
                 $itemImagesArr[] = $itemRes->getImage();
             }
         }

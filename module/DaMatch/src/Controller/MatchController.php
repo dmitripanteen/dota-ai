@@ -129,61 +129,61 @@ class MatchController extends AbstractActionController
                         ->setBackpack0(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_0)
-                            )[0]
+                            )
                             ?? null
                         )
                         ->setBackpack1(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_1)
-                            )[0]
+                            )
                             ?? null
                         )
                         ->setBackpack2(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_2)
-                            )[0]
+                            )
                             ?? null
                         )
                         ->setBackpack3(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->backpack_3)
-                            )[0]
+                            )
                             ?? null
                         )
                         ->setHero(
                             $this->heroRepository->findById(
                                 MatchHelper::mapOpendotaHeroesToLocal($matchJSON->players[$i]->hero_id)
-                            )[0]
+                            )
                         )
                         ->setItem0(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_0)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setItem1(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_1)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setItem2(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_2)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setItem3(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_3)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setItem4(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_4)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setItem5(
                             $this->itemRepository->findById(
                                 MatchHelper::mapOpendotaItemsToLocal($matchJSON->players[$i]->item_5)
-                            )[0] ?? null
+                            ) ?? null
                         )
                         ->setAccountId($matchJSON->players[$i]->account_id)
                         ->setKills($matchJSON->players[$i]->kills)
@@ -198,7 +198,7 @@ class MatchController extends AbstractActionController
                         ->setNeutralItem(
                             $this->neutralItemRepository->findById(
                                 MatchHelper::mapOpendotaNeutralItemsToLocal($matchJSON->players[$i]->item_neutral)
-                            )[0] ?? null
+                            ) ?? null
                         );
                     $this->entityManager->persist($matchPlayer);
                     $this->entityManager->flush();
