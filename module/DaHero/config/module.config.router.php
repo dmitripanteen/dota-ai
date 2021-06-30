@@ -16,7 +16,7 @@ return [
                     'action'     => 'index',
                 ],
             ],
-            'may_terminate' => false,
+            'may_terminate' => true,
             'child_routes'  => [
                 'hero-page' => [
                     'type'          => Segment::class,

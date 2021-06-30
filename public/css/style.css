@@ -81,6 +81,9 @@ div.container a.navbar-brand > img {
 .bg-lightblue{
     background-color: rgba(131, 212, 255, 0.38);
 }
+.bg-blue{
+    background-color: #4ac0ff;
+}
 .bg-lightyellow{
     background-color: #FFE4A3;
 }

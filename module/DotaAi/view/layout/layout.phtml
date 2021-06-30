@@ -18,7 +18,7 @@
     ?>
 
     <!-- Scripts -->
-    <?= $this->inlineScript()
+    <?  $this->inlineScript()
         ->prependFile($this->basePath('js/script.js'))
         ->prependFile($this->basePath('js/bootstrap.min.js'))
         ->prependFile($this->basePath('js/jquery-3.3.1.min.js'))
@@ -29,25 +29,38 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark"
      role="navigation">
     <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="<?= $this->url('home') ?>">
-                <img src="<?= $this->basePath('img/zf-logo-mark.svg') ?>"
-                     height="28"
-                     alt="Zend Framework <?= \DotaAi\Module::VERSION ?>"/>&nbsp;Skeleton
-                Application
-            </a>
-        </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="<?= $this->url('home') ?>">Home
-                        <span class="sr-only">(current)</span></a>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('home') ?>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('heroes') ?>">Heroes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('talents') ?>">Talents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('items') ?>">Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('neutral-items') ?>">Neutral Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('matches') ?>">Matches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $this->url('hero-builder') ?>">Hero Builder</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Stats
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="<?= $this->url('hero-stats') ?>">Hero Stats</a>
+                        <a class="dropdown-item" href="<?= $this->url('item-stats') ?>">Item Stats</a>
+                        <a class="dropdown-item" href="<?= $this->url('neutral-item-stats') ?>">Neutral items Stats</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -55,10 +68,7 @@
 </nav>
 <div class="container">
     <?= $this->content ?>
-    <hr>
     <footer>
-        <p>&copy; 2005 - <?= date('Y') ?> by Zend Technologies Ltd. All rights
-            reserved.</p>
     </footer>
 </div>
 <?= $this->inlineScript() ?>
